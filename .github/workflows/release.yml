@@ -1,8 +1,12 @@
 name: 'Publish new release'
+
+# Triggered when pushing to the `release` branch
 on:
   workflow_dispatch:
-  release:
-    types: [published]
+  push:
+    branches: [release]
+    # tags:
+    #   - 'v*'
 
 jobs:
   publish-tauri:

@@ -5,7 +5,7 @@ APPIMAGE_PATH="/home/vemonet/develop/perso/EmojiMart/src-tauri/target/release/bu
 VERSION="0.1.0"
 
 # Download:
-# wget -O ~/.local/bin/EmojiMart.AppImage https://github.com/vemonet/EmojiMart/releases/download/$VERSION/emoji-mart_$VERSION_amd64.AppImage
+# wget -O ~/.local/bin/EmojiMart.AppImage https://github.com/vemonet/EmojiMart/releases/download/v$VERSION/emoji-mart_$VERSION_amd64.AppImage
 # wget -O ~/.local/share/applications/EmojiMart.desktop https://github.com/vemonet/EmojiMart/blob/main/public/EmojiMart.desktop?raw=true
 
 # Copy from local:
