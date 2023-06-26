@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "tauri-app",
+    "productName": "emoji-mart",
     "version": "0.0.0"
   },
   "tauri": {
@@ -15,6 +15,9 @@
       "all": false,
       "clipboard": {
         "writeText": true
+      },
+      "window": {
+        "close": true
       }
     },
     "bundle": {
@@ -34,13 +37,13 @@
     },
     "windows": [
       {
-        "decorations": true,
-        "fullscreen": false,
+        "decorations": false,
+        "transparent": true,
+        "center": true,
         "resizable": true,
+        "fullscreen": false,
         "title": "🏪 Emoji Mart",
-        "width": 360,
-        "height": 400,
-        "minHeight": 220
+        "width": 600
       }
     ]
   }

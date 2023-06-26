@@ -641,6 +641,50 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@solid-primitives/event-listener@npm:^2.2.13":
+  version: 2.2.13
+  resolution: "@solid-primitives/event-listener@npm:2.2.13"
+  dependencies:
+    "@solid-primitives/utils": ^6.2.0
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: c4af9325be40ef43eb6753fa414436b078c68e5aa7b49bc8c5f974b250ba443de5a12f26c9e71202e87ed8aeafcbbb4f780ed2d3c9753f5262b79acaa5bbdd4c
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/keyboard@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "@solid-primitives/keyboard@npm:1.2.3"
+  dependencies:
+    "@solid-primitives/event-listener": ^2.2.13
+    "@solid-primitives/rootless": ^1.4.1
+    "@solid-primitives/utils": ^6.2.0
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 892a97191447161836d87ab301998b7e1a53d9814569470ada60351ae8d0578d236bfc2436d398b5fe348d27e8125de7b7e0e43789f987cbaf28fc0fe3b90b1c
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/rootless@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "@solid-primitives/rootless@npm:1.4.1"
+  dependencies:
+    "@solid-primitives/utils": ^6.2.0
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 8b31ec4ee7a5dc87b00256613f0c6082bb5d5457a2fe87f159ad4d6f12e2a2a2867af3eb867acec20ff19aec8c1f765254d8f0891b33c69ecb65479935a79496
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/utils@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "@solid-primitives/utils@npm:6.2.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 945f16040780b0da2a8ef5da7b0e7df22320d6301b230b9ec7d2e9984d7b8f05970b7ed2174a127c3a0a09f590629e47acfd5152025ea0a52f028fc083e98dca
+  languageName: node
+  linkType: hard
+
 "@tauri-apps/api@npm:^1.4.0":
   version: 1.4.0
   resolution: "@tauri-apps/api@npm:1.4.0"
@@ -2211,6 +2255,7 @@ __metadata:
   dependencies:
     "@emoji-mart/data": ^1.1.2
     "@emoji-mart/react": ^1.1.1
+    "@solid-primitives/keyboard": ^1.2.3
     "@tauri-apps/api": ^1.4.0
     "@tauri-apps/cli": ^1.4.0
     "@types/node": ^18.7.10

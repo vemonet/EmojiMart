@@ -1,8 +1,8 @@
 import "./App.css";
 import data from "@emoji-mart/data";
-// import Picker from "@emoji-mart/react";
 import { Picker } from 'emoji-mart'
-import { clipboard } from "@tauri-apps/api";
+import { clipboard, window } from "@tauri-apps/api";
+// import { useKeyDownEvent } from "@solid-primitives/keyboard";
 
 export interface EmojiData {
   // only some properties, waiting for https://github.com/missive/emoji-mart/pull/789
@@ -15,25 +15,23 @@ export interface EmojiData {
 
 function App() {
   const onEmojiSelect = (emoji: EmojiData) => {
-    console.log('IN EMOJI SELECT')
     clipboard.writeText(emoji.native);
+    setTimeout(() => window.appWindow.close(), 0);
   };
 
-  console.log('CREATE PICKER')
-  return new Picker({ data, onEmojiSelect })
+  // TODO: close window when click outside or click ESC?
+  // const event = useKeyDownEvent();
+  // const e = event();
+  // if (e) {
+  //   console.log(e.key); // => "Q" | "ALT" | ... or null
+  //   if (e.key === "ALT") {
+  //     window.appWindow.close()
+  //   }
+  //   e.preventDefault(); // prevent default behavior or last keydown event
+  // }
 
-  // return (
-  //   <div class="container">
-  //     <div class="picker">
-  //       <Picker
-  //         data={data}
-  //         onEmojiSelect={onEmojiSelect}
-  //         autoFocus={true}
-  //         dynamicWidth={true}
-  //       />
-  //     </div>
-  //   </div>
-  // );
+  return new Picker({ data, onEmojiSelect, autoFocus: true, dynamicWidth: true})
+
 }
 
 export default App;
