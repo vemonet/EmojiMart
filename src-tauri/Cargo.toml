@@ -1,8 +1,8 @@
 [package]
 name = "emoji-mart-app"
-version = "0.0.1"
-description = "Emoji Mart packaged as tauri app"
-authors = ["you"]
+version = "0.1.0"
+description = "Emoji picker for desktop. Built with the Emoji Mart web component, and packaged as a tauri app."
+authors = ["Vincent Emonet"]
 license = ""
 repository = ""
 edition = "2021"

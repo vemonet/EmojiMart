@@ -1,4 +1,3 @@
-import "./App.css";
 import data from "@emoji-mart/data";
 import { Picker } from 'emoji-mart'
 import { clipboard, window } from "@tauri-apps/api";
@@ -31,7 +30,6 @@ function App() {
   // }
 
   return new Picker({ data, onEmojiSelect, autoFocus: true, dynamicWidth: true})
-
 }
 
 export default App;

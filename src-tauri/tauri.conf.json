@@ -7,8 +7,8 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "emoji-mart",
-    "version": "0.0.0"
+    "productName": "emoji-mart-app",
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -23,7 +23,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.github.vemonet",
+      "identifier": "io.github.vemonet",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
