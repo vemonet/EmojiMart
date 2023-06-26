@@ -15,7 +15,7 @@ Inspired from [github.com/Simon-Laux/tauri-emoji-mart-app](https://github.com/Si
 Run this command to download the `.AppImage`, and create a desktop file for it:
 
 ```bash
-curl https://raw.github.com/vemonet/EmojiMart/release/install.sh | bash
+curl -Ls https://raw.github.com/vemonet/EmojiMart/main/install.sh | bash
 ```
 
 You can also manually download the `.AppImage` from the [latest release](https://github.com/vemonet/EmojiMart/releases/latest), and install it.
