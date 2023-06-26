@@ -6,7 +6,8 @@ Built with Tauri, Solid JS, Typescript, and Vite.
 
 Inspired from https://github.com/Simon-Laux/tauri-emoji-mart-app, difference are that we use SolidJS instead of React, the title bar is gone, windows size has been improved, and the picker pops in the middle of the screen now.
 
-![All emojis](https://raw.githubusercontent.com/vemonet/emoji-mart-app/main/public/screenshot_all.png) ![Search emojis](https://raw.githubusercontent.com/vemonet/emoji-mart-app/main/public/screenshot_search.png)
+![Emoji Mart screenshot](https://raw.githubusercontent.com/vemonet/emoji-mart-app/main/public/screenshot.png)
+
 
 ## 🛠️ Development
 
