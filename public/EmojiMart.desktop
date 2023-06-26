@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Emoji Mart
+Comment=A modern popup emoji picker, based on Emoji Mart
+Icon=EmojiMart
+Exec=~/.local/bin/EmojiMart.AppImage
+Categories=Utility;
+Keywords=emoji,smiley,emoticon,icon,picker
