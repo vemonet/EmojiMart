@@ -5,21 +5,19 @@ import { listen, TauriEvent } from '@tauri-apps/api/event'
 import { onCleanup } from 'solid-js';
 
 export interface EmojiData {
-  // only some properties, waiting for https://github.com/missive/emoji-mart/pull/789
-  // alternatively we could use the old types of @types/emoji-mart@3.0.9
+  // Only some properties, waiting for https://github.com/missive/emoji-mart/pull/789
   id: string;
   name: string;
   colons: string;
   native: string;
 }
 
-function App() {
+function App(): any {
 
   // Add to clipboard and close when clicking an emoji
   const onEmojiSelect = (emoji: EmojiData) => {
     clipboard.writeText(emoji.native);
-    setTimeout(() => window.appWindow.hide())
-    // setTimeout(() => window.appWindow.hide().then(ok => console.log(ok)), 0);
+    setTimeout(() => window.appWindow.close())
   };
 
   // Close when hit <Esc>
@@ -33,8 +31,8 @@ function App() {
   // Close when click out (unfortunatly also when right click)
   // TODO: dont add this listener when in dev mode
   const focusListener = listen(TauriEvent.WINDOW_BLUR, () => {
-    // window.appWindow.close()
-    window.appWindow.hide()
+    window.appWindow.close()
+    // window.appWindow.hide()
   });
 
   onCleanup(() => {
