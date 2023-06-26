@@ -1,7 +1,8 @@
 import data from "@emoji-mart/data";
 import { Picker } from 'emoji-mart'
 import { clipboard, window } from "@tauri-apps/api";
-// import { useKeyDownEvent } from "@solid-primitives/keyboard";
+import { listen, TauriEvent } from '@tauri-apps/api/event'
+import { onCleanup } from 'solid-js';
 
 export interface EmojiData {
   // only some properties, waiting for https://github.com/missive/emoji-mart/pull/789
@@ -13,21 +14,33 @@ export interface EmojiData {
 }
 
 function App() {
+
+  // Add to clipboard and close when clicking an emoji
   const onEmojiSelect = (emoji: EmojiData) => {
     clipboard.writeText(emoji.native);
-    setTimeout(() => window.appWindow.close(), 0);
+    setTimeout(() => window.appWindow.hide())
+    // setTimeout(() => window.appWindow.hide().then(ok => console.log(ok)), 0);
   };
 
-  // TODO: close window when click outside or click ESC?
-  // const event = useKeyDownEvent();
-  // const e = event();
-  // if (e) {
-  //   console.log(e.key); // => "Q" | "ALT" | ... or null
-  //   if (e.key === "ALT") {
-  //     window.appWindow.close()
-  //   }
-  //   e.preventDefault(); // prevent default behavior or last keydown event
-  // }
+  // Close when hit <Esc>
+  const handleKeypress = (event: any) => {
+    if (event.code === "Escape") {
+      window.appWindow.close()
+    }
+  };
+  document.addEventListener('keypress', handleKeypress);
+
+  // Close when click out (unfortunatly also when right click)
+  // TODO: dont add this listener when in dev mode
+  const focusListener = listen(TauriEvent.WINDOW_BLUR, () => {
+    // window.appWindow.close()
+    window.appWindow.hide()
+  });
+
+  onCleanup(() => {
+    document.removeEventListener('keypress', handleKeypress);
+    focusListener.then((unlisten) => unlisten());
+  });
 
   return new Picker({ data, onEmojiSelect, autoFocus: true, dynamicWidth: true})
 }
