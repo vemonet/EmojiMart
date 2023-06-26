@@ -8,8 +8,9 @@ Inspired from https://github.com/Simon-Laux/tauri-emoji-mart-app, difference are
 
 ![Emoji Mart screenshot](https://raw.githubusercontent.com/vemonet/emoji-mart-app/main/public/screenshot.png)
 
-
 ## 🛠️ Development
+
+[![Build app](https://github.com/vemonet/emoji-mart-app/actions/workflows/build.yml/badge.svg)](https://github.com/vemonet/emoji-mart-app/actions/workflows/build.yml)
 
 Install:
 
@@ -36,3 +37,5 @@ yarn tauri build
 ## 📋️ Notes
 
 Creating a system tray and running in the background: https://tauri.app/fr/v1/guides/features/system-tray/#preventing-the-app-from-closing
+
+Flatpak: https://github.com/hadess/flathub/tree/d4b53ff829e0917c5129294132f619e5f12d337c
