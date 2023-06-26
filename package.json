@@ -1,6 +1,6 @@
 {
   "name": "emoji-mart-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Emoji picker for desktop. Built with the Emoji Mart web component, and packaged as a tauri app.",
   "scripts": {
     "start": "vite",
