@@ -1,19 +1,17 @@
-# 🏪 Emoji Mart desktop popup
+# <span><img width="24" height="24" src="https://github.com/vemonet/EmojiMart/blob/main/src-tauri/icons/32x32.png"></span> Emoji Mart desktop popup
 
 Modern emoji picker popup app for desktop, based on the [Emoji Mart](https://github.com/missive/emoji-mart) web component.
 
-* 🍾 Built as a popup: quick invocation with built-in shortcut `Alt+Space`, and disappears when not needed, does not stay as a standalone window
+* 🍾 Built as a popup: quick invocation through your system custom shortcuts, and disappears when not needed, does not stay as a standalone window, does not run in the background
 * 🔎 Search text box automatically focused and ready to type when invoked
 * ⌨️ Can use the keyboard to navigate and select emojis
-* 💽 Runs in the background, with a system tray icon to invoke or stop the app
 * ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows
 * 🧑‍🚀 Uses modern and flexible technologies (JSX for UI, Rust for cross-platform compilation, what else?), making it easier to maintain and build upon in the future
+* ✒️ Selected emoji automatically pasted to your currently focused app (on Linux X11 only)
 
 Built with [Tauri](https://tauri.app/), [Solid JS](https://www.solidjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 
 ![Emoji Mart screenshot](https://raw.githubusercontent.com/vemonet/EmojiMart/main/public/screenshot.png)
-
-> Inspired by [github.com/Simon-Laux/tauri-emoji-mart-app](https://github.com/Simon-Laux/tauri-emoji-mart-app), difference are that we use Solid JS instead of React, and the popup design and performances have been improved.
 
 ## 📥️ Installation
 
@@ -126,24 +124,13 @@ To publish a new release, follow this process:
 4. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, and create a draft release
 5. Finally you can review the draft on the [**Releases** page](https://github.com/vemonet/EmojiMart/releases), generate the Release note, and publish it in 2 clicks
 
-## 📋️ Todo
+## 📋️ Notes
 
-- [ ] When running in the background and invoked using the built-in shortcut the window is not properly focused. Alternatively when installed with flatpak starting it without letting it run in the background is fast enough for using it like this directly, and does not have any issue with focusing.
+The app currently does not run in the background. It could be invoked slightly faster with a built-in shortcut, and running in the background, but that increases the chances of people starting many phantom processes without knowing. When running in the background and invoked using the built-in shortcut the window is not properly focused. Alternatively when installed with flatpak starting it without letting it run in the background is fast enough for using it like this directly, and does not have any issue with focusing.
 
-- [ ] Build Flatpak:
-  - [ ] Example: https://github.com/hadess/flathub/tree/d4b53ff829e0917c5129294132f619e5f12d337c
-  
-  - [ ] Autostart: use dbus portals https://github.com/diwic/dbus-rs/blob/master/dbus/examples/properties.rs
-  
-    ```python
-    bus = dbus.SessionBus()
-    obj = bus.get_object("org.freedesktop.portal.Desktop", "/org/freedesktop/portal/desktop")
-    inter = dbus.Interface(obj, "org.freedesktop.portal.Background")
-    res = inter.RequestBackground('', {
-        'reason': 'Emote autostart',
-        'autostart': True, 'background': True,
-        'commandline': dbus.Array(['emote'])
-    })
-    ```
-  
-    
+Letting the user register custom system shortcuts, instead of having the app registering the shortcut for the user, prevents bugs and conflicts with other shortcuts. Which enable the users to choose from a larger amount of shortcuts.
+
+Inspired by [github.com/Simon-Laux/tauri-emoji-mart-app](https://github.com/Simon-Laux/tauri-emoji-mart-app), difference are that we use Solid JS instead of React, and the popup design and performances have been improved.
+
+[Icon](https://www.vecteezy.com/vector-art/5726169-cardboard-box-funny-box-box-character-delivery-box-box-emoji) credits: <a href="https://www.vecteezy.com/members/duniaonme653898">duniaonme653898 on Vecteezy</a>
+
