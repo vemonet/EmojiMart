@@ -1,4 +1,4 @@
-# <span><img width="128" height="128" src="https://github.com/vemonet/EmojiMart/blob/main/src-tauri/icons/32x32.png"></span> Emoji Mart desktop popup
+# <span><img width="35" height="35" src="https://github.com/vemonet/EmojiMart/blob/main/src-tauri/icons/128x128.png"></span> Emoji Mart desktop popup
 
 Modern emoji picker popup app for desktop, based on the [Emoji Mart](https://github.com/missive/emoji-mart) web component.
 
