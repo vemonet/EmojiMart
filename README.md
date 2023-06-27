@@ -2,13 +2,13 @@
 
 Modern emoji picker popup app for desktop, based on the [Emoji Mart](https://github.com/missive/emoji-mart) web component.
 
-* 🍾 Built as a popup: quick invocation with built-in shortcut `Alt+E`, and disappears when not needed, does not stay as a standalone window
+* 🍾 Built as a popup: quick invocation with built-in shortcut `Alt+Space`, and disappears when not needed, does not stay as a standalone window
 * 💽 Runs in the background, with a system tray icon to invoke or stop the app
 * ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows
 * 🧑‍🚀 Uses modern and popular technologies (JSX for UI, Rust for cross-platform compilation, what else?), making it easier to maintain and build upon in the future
 * 🪶 Light on resources (yet to be proven)
 
-Built with [Tauri](https://tauri.app/), [Solid JS](https://www.solidjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/). 
+Built with [Tauri](https://tauri.app/), [Solid JS](https://www.solidjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 
 ![Emoji Mart screenshot](https://raw.githubusercontent.com/vemonet/EmojiMart/main/public/screenshot.png)
 
@@ -42,13 +42,15 @@ Recommended IDE Setup: [VS Code](https://code.visualstudio.com/) + [Tauri](https
 
 ### 🧶 Install
 
+See pre-requesites to run tauri: https://tauri.app/v1/guides/getting-started/prerequisites
+
 ```bash
 yarn
 ```
 
 On Linux you need to install additional dependencies for the system tray:
 
-```bash 
+```bash
 sudo dnf install libappindicator
 ```
 
@@ -95,5 +97,5 @@ To publish a new release, follow this process:
 
 ## 📋️ Todo
 
-- [ ] Build Flatpak: 
+- [ ] Build Flatpak:
   - [ ] Example: https://github.com/hadess/flathub/tree/d4b53ff829e0917c5129294132f619e5f12d337c

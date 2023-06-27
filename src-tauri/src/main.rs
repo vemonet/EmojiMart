@@ -4,10 +4,13 @@
 use tauri::{GlobalShortcutManager, Manager, Window};
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 
+const BUILTIN_SHORTCUT: &str = "Alt+Space";
+// NOTE: using the super key + E also write down the E letter. CommandOrControl is possible
+
 fn build_menu() -> SystemTrayMenu {
   SystemTrayMenu::new()
       .add_item(CustomMenuItem::new("show".to_string(), "Emoji Mart picker 🏪"))
-      .add_item(CustomMenuItem::new("shortcut".to_string(), "Shortcut: Alt+E"))
+      .add_item(CustomMenuItem::new("shortcut".to_string(), format!("Shortcut: {}", BUILTIN_SHORTCUT)))
       .add_native_item(SystemTrayMenuItem::Separator)
       .add_item(CustomMenuItem::new("quit".to_string(), "Quit"))
 }
@@ -26,6 +29,7 @@ fn main() {
     tauri::Builder::default()
       .system_tray(SystemTray::new().with_menu(tray_menu))
       .on_system_tray_event(move |app, event| match event {
+          // NOTE: right and double click don't seems to work
           SystemTrayEvent::RightClick { position: _, size: _, .. } => {
               show_window(app.get_window("main").unwrap());
           }
@@ -40,7 +44,7 @@ fn main() {
                   show_window(app.get_window("main").unwrap());
               }
               "shortcut" => {
-                  // TODO: implement a window to enable changing the shortcut
+                  // TODO: implement a window to enable the user to change the shortcut
                   show_window(app.get_window("main").unwrap());
               }
               _ => {}
@@ -49,16 +53,15 @@ fn main() {
       })
       .setup(|app| {
         // Don't show on the taskbar/springboard, this is purely a personal taste thing
-        // #[cfg(target_os = "macos")]
-        // app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+        #[cfg(target_os = "macos")]
+        app.set_activation_policy(tauri::ActivationPolicy::Accessory);
 
         let window = app.get_window("main").unwrap();
 
         // Register shortcut to open the app running in the background
         let mut shortcut = app.global_shortcut_manager();
         shortcut
-            // NOTE: using the super key also write down the letter we hit
-            .register("Alt+E", move || {
+            .register(BUILTIN_SHORTCUT, move || {
                 if window.is_visible().unwrap() {
                   window.hide().unwrap();
                 } else {
@@ -73,7 +76,7 @@ fn main() {
       })
       .on_window_event(|event| match event.event() {
         tauri::WindowEvent::CloseRequested { api, .. } => {
-            // don't kill the app when the user clicks close. this is important
+            // Don't kill the app when the user clicks close
             event.window().hide().unwrap();
             api.prevent_close();
         }
