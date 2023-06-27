@@ -3,8 +3,7 @@ import { Picker } from 'emoji-mart'
 import { clipboard } from "@tauri-apps/api";
 import { appWindow } from '@tauri-apps/api/window'
 import { invoke } from '@tauri-apps/api/tauri'
-import { onCleanup } from 'solid-js';
-// import { register } from '@tauri-apps/api/globalShortcut';
+import { onCleanup, onMount } from 'solid-js';
 
 export interface EmojiData {
   // Only some properties, waiting for https://github.com/missive/emoji-mart/pull/789
@@ -21,35 +20,23 @@ function App(): any {
     clipboard.writeText(emoji.native);
     appWindow.hide()
     invoke('trigger_paste')
-  };
+  }
 
   // Close when hit <Esc>
   const handleKeypress = (event: any) => {
     if (event.code === "Escape") {
       appWindow.close()
     }
-    // TODO: else focus on the picker search input? To overcome issue where we lose focus
-  };
-  document.addEventListener('keypress', handleKeypress);
+    // TODO: else if key somewhere from A to Z, bring back focus on the picker search input
+  }
 
-  // Close when click out, also handled in main.rs, added here to try to fix issue with focus
-  // const focusListener = listen(TauriEvent.WINDOW_BLUR, () => {
-  //   appWindow.hide()
-  // });
-
-  // onMount( async () => {
-  //   await register('Alt+Space', () => {
-  //     appWindow.show()
-  //     appWindow.center()
-  //     appWindow.setAlwaysOnTop(true)
-  //     appWindow.setFocus()
-  //   });
-  // });
+  onMount(() => {
+    document.addEventListener('keypress', handleKeypress);
+  })
 
   onCleanup(() => {
     document.removeEventListener('keypress', handleKeypress);
-    // focusListener.then((unlisten) => unlisten());
-  });
+  })
 
   return new Picker({ data, onEmojiSelect, autoFocus: true, dynamicWidth: true})
 }
