@@ -3,7 +3,8 @@ import { Picker } from 'emoji-mart'
 import { clipboard } from "@tauri-apps/api";
 import { listen, TauriEvent } from '@tauri-apps/api/event'
 import { appWindow } from '@tauri-apps/api/window'
-import { onCleanup } from 'solid-js';
+import { onCleanup, onMount } from 'solid-js';
+// import { register } from '@tauri-apps/api/globalShortcut';
 
 export interface EmojiData {
   // Only some properties, waiting for https://github.com/missive/emoji-mart/pull/789
@@ -20,6 +21,7 @@ function App(): any {
     clipboard.writeText(emoji.native);
     setTimeout(() => appWindow.hide())
   };
+  // init({ data, onEmojiSelect, autoFocus: true, dynamicWidth: true })
 
   // Close when hit <Esc>
   const handleKeypress = (event: any) => {
@@ -35,12 +37,22 @@ function App(): any {
     appWindow.hide()
   });
 
+  // onMount( async () => {
+  //   await register('Alt+Space', () => {
+  //     appWindow.show()
+  //     appWindow.center()
+  //     appWindow.setAlwaysOnTop(true)
+  //     appWindow.setFocus()
+  //   });
+  // });
+
   onCleanup(() => {
     document.removeEventListener('keypress', handleKeypress);
     focusListener.then((unlisten) => unlisten());
   });
 
   return new Picker({ data, onEmojiSelect, autoFocus: true, dynamicWidth: true})
+  // return <em-emoji></em-emoji>
 }
 
 export default App;

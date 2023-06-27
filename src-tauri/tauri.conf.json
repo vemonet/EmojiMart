@@ -22,7 +22,10 @@
       },
       "window": {
         "close": true,
-        "hide": true
+        "hide": true,
+        "show": true,
+        "center": true,
+        "setAlwaysOnTop": true
       },
       "globalShortcut": {
         "all": true

@@ -14,7 +14,7 @@ edition = "2021"
 tauri-build = { version = "1.4", features = [] }
 
 [dependencies]
-tauri = { version = "1.4", features = [ "global-shortcut-all", "system-tray", "window-hide", "window-close", "clipboard-write-text"] }
+tauri = { version = "1.4", features = [ "window-set-always-on-top", "window-center", "window-show", "global-shortcut-all", "system-tray", "window-hide", "window-close", "clipboard-write-text"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 

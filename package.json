@@ -12,7 +12,6 @@
   "license": "MIT",
   "dependencies": {
     "@emoji-mart/data": "^1.1.2",
-    "@solid-primitives/keyboard": "^1.2.3",
     "@tauri-apps/api": "^1.4.0",
     "emoji-mart": "^5.5.2",
     "solid-js": "^1.7.0"

@@ -3,10 +3,11 @@
 Modern emoji picker popup app for desktop, based on the [Emoji Mart](https://github.com/missive/emoji-mart) web component.
 
 * 🍾 Built as a popup: quick invocation with built-in shortcut `Alt+Space`, and disappears when not needed, does not stay as a standalone window
+* 🔎 Search text box automatically focused and ready to type when invoked
+* ⌨️ Can use the keyboard to navigate and select emojis
 * 💽 Runs in the background, with a system tray icon to invoke or stop the app
 * ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows
-* 🧑‍🚀 Uses modern and popular technologies (JSX for UI, Rust for cross-platform compilation, what else?), making it easier to maintain and build upon in the future
-* 🪶 Light on resources (yet to be proven)
+* 🧑‍🚀 Uses modern and flexible technologies (JSX for UI, Rust for cross-platform compilation, what else?), making it easier to maintain and build upon in the future
 
 Built with [Tauri](https://tauri.app/), [Solid JS](https://www.solidjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 
@@ -86,6 +87,18 @@ Put your icon file named `app-icon.png` (ideally size 512 or 1024) at the root o
 yarn tauri icon
 ```
 
+## ⏫ Upgrade dependencies
+
+Check latest: 
+
+* EmojiMart web component: [npmjs.com/package/emoji-mart](https://www.npmjs.com/package/emoji-mart) and [npmjs.com/package/@emoji-mart/data](https://www.npmjs.com/package/@emoji-mart/data)
+* Tauri app: [tauri.app](https://tauri.app)
+
+```bash
+yarn up @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
+cargo update
+```
+
 ### 🏷️ New release
 
 Repository to build the Flatpak package: [github.com/vemonet/flathub/tree/io.github.vemonet.EmojiMart](https://github.com/vemonet/flathub/tree/io.github.vemonet.EmojiMart)
@@ -106,6 +119,8 @@ To publish a new release, follow this process:
 5. Finally you can review the draft on the [**Releases** page](https://github.com/vemonet/EmojiMart/releases), generate the Release note, and publish it in 2 clicks
 
 ## 📋️ Todo
+
+- [ ] When running in the background and invoked using the built-in shortcut the window is not properly focused. Alternatively when installed with flatpak starting it without letting it run in the background is fast enough for using it like this directly, and does not have any issue with focusing.
 
 - [ ] Build Flatpak:
   - [ ] Example: https://github.com/hadess/flathub/tree/d4b53ff829e0917c5129294132f619e5f12d337c
