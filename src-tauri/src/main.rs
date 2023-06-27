@@ -1,7 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use tauri::{GlobalShortcutManager, Manager, Window, AppHandle};
+use tauri::{GlobalShortcutManager, Manager, Window};
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 // use dbus::{blocking::Connection, arg};
 // use std::time::Duration;
@@ -24,7 +24,7 @@ fn show_window(window: &Window) {
   window.set_focus().unwrap();
 }
 
-// TODO: use dbus for autostart https://github.com/diwic/dbus-rs/blob/master/dbus/examples/properties.rs
+// TODO: use dbus for flatpak autostart https://github.com/diwic/dbus-rs/blob/master/dbus/examples/properties.rs
 // https://github.com/rustdesk/rustdesk/blob/56eac7294c706ffbe3bf9043b5f1d9b1bc2c4f5a/libs/scrap/src/wayland/pipewire.rs#L304
 // https://github.com/AlfioEmanueleFresta/xdg-credentials-portal/blob/eb87ea691a7f97b6ffd9d75f673ff54e13794e82/libwebauthn/src/ui.rs#L92
 // fn linux_autostart() {
@@ -85,7 +85,6 @@ fn main() {
         app.set_activation_policy(tauri::ActivationPolicy::Accessory);
 
         let window = app.get_window("main").unwrap();
-        // let window = main_window(app.app_handle());
 
         // Register shortcut to open the app running in the background
         let mut shortcut = app.global_shortcut_manager();
@@ -94,7 +93,6 @@ fn main() {
                 if window.is_visible().unwrap() {
                   window.hide().unwrap();
                 } else {
-                  // TODO: should not be owned
                   // show_window(window);
                   window.show().unwrap();
                   window.center().unwrap();

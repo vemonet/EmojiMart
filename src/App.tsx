@@ -26,7 +26,7 @@ function App(): any {
     if (event.code === "Escape") {
       appWindow.hide()
     }
-    // TODO: else focus on the picker search input?
+    // TODO: else focus on the picker search input? To overcome issue where we lose focus
   };
   document.addEventListener('keypress', handleKeypress);
 

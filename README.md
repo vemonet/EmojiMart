@@ -64,9 +64,9 @@ yarn tauri dev
 
 > To see logs and debug: right click on the app window, and select `Inspect Element`
 
-### 📦️ Package
+### 📦️ Build
 
-Build an `.AppImage` and `.deb` packages (or `.dmg`/`.exe` depending on your OS):
+Build `.AppImage` and `.deb` packages, or `.dmg`/`.exe` depending on your OS:
 
 ```bash
 yarn tauri build
@@ -76,6 +76,14 @@ On Linux, install the previously built `EmojiMart.AppImage` as desktop app:
 
 ```bash
 ./install.sh local
+```
+
+### 🔄 Change icon
+
+Put your icon file named `app-icon.png` (ideally size 512 or 1024) at the root of the repo, and run (cf. [official docs](https://tauri.app/fr/v1/guides/features/icons/)):
+
+```bash
+yarn tauri icon
 ```
 
 ### 🏷️ New release
