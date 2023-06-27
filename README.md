@@ -88,6 +88,8 @@ yarn tauri icon
 
 ### 🏷️ New release
 
+Repository to build the Flatpak package: [github.com/vemonet/flathub/tree/io.github.vemonet.EmojiMart](https://github.com/vemonet/flathub/tree/io.github.vemonet.EmojiMart)
+
 To publish a new release, follow this process:
 
 1. Make sure you have changed the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`
