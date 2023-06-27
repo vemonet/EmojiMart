@@ -45,6 +45,14 @@ Recommended IDE Setup: [VS Code](https://code.visualstudio.com/) + [Tauri](https
 
 See pre-requesites to run tauri: https://tauri.app/v1/guides/getting-started/prerequisites
 
+Additional dependencies for Linux:
+
+```bash
+sudo dnf install libX11-devel libxdo-devel libappindicator-gtk3
+```
+
+Install npm packages:
+
 ```bash
 yarn
 ```

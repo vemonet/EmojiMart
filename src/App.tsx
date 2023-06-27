@@ -1,9 +1,9 @@
 import data from "@emoji-mart/data";
 import { Picker } from 'emoji-mart'
 import { clipboard } from "@tauri-apps/api";
-import { listen, TauriEvent } from '@tauri-apps/api/event'
 import { appWindow } from '@tauri-apps/api/window'
-import { onCleanup, onMount } from 'solid-js';
+import { invoke } from '@tauri-apps/api/tauri'
+import { onCleanup } from 'solid-js';
 // import { register } from '@tauri-apps/api/globalShortcut';
 
 export interface EmojiData {
@@ -19,23 +19,23 @@ function App(): any {
   // Add to clipboard and close when clicking an emoji
   const onEmojiSelect = (emoji: EmojiData) => {
     clipboard.writeText(emoji.native);
-    setTimeout(() => appWindow.hide())
+    appWindow.hide()
+    invoke('trigger_paste')
   };
-  // init({ data, onEmojiSelect, autoFocus: true, dynamicWidth: true })
 
   // Close when hit <Esc>
   const handleKeypress = (event: any) => {
     if (event.code === "Escape") {
-      appWindow.hide()
+      appWindow.close()
     }
     // TODO: else focus on the picker search input? To overcome issue where we lose focus
   };
   document.addEventListener('keypress', handleKeypress);
 
   // Close when click out, also handled in main.rs, added here to try to fix issue with focus
-  const focusListener = listen(TauriEvent.WINDOW_BLUR, () => {
-    appWindow.hide()
-  });
+  // const focusListener = listen(TauriEvent.WINDOW_BLUR, () => {
+  //   appWindow.hide()
+  // });
 
   // onMount( async () => {
   //   await register('Alt+Space', () => {
@@ -48,11 +48,10 @@ function App(): any {
 
   onCleanup(() => {
     document.removeEventListener('keypress', handleKeypress);
-    focusListener.then((unlisten) => unlisten());
+    // focusListener.then((unlisten) => unlisten());
   });
 
   return new Picker({ data, onEmojiSelect, autoFocus: true, dynamicWidth: true})
-  // return <em-emoji></em-emoji>
 }
 
 export default App;

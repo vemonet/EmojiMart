@@ -913,13 +913,13 @@ __metadata:
   linkType: hard
 
 "babel-preset-solid@npm:^1.7.2":
-  version: 1.7.4
-  resolution: "babel-preset-solid@npm:1.7.4"
+  version: 1.7.7
+  resolution: "babel-preset-solid@npm:1.7.7"
   dependencies:
     babel-plugin-jsx-dom-expressions: ^0.36.10
   peerDependencies:
     "@babel/core": ^7.0.0
-  checksum: e1eb12b8f2d3db447672d75fa86932fbc232c39726ba6bf83ed68609935ef80fc84fdad9f0e3e17eadd2dce9a25d4bd61197dc64d34761a480a60a5e300fd2e1
+  checksum: 4e38db85893e743fe076e24cb0f4bb3dfbf75e374dee1e1da99f96a0344cea7213f8c3192a01753cd33e388e5c831cc2ac564ee764e19148beafd67682d0eaa0
   languageName: node
   linkType: hard
 
@@ -1129,9 +1129,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.431":
-  version: 1.4.440
-  resolution: "electron-to-chromium@npm:1.4.440"
-  checksum: 702f8f045492a15bc6eee408987c986de1e78a568b34fc68ed6a21e1fc03f3a3019e7e6a6d88c1f4468fbe788045425e70104ec9b481825d0bce00e3841418b8
+  version: 1.4.442
+  resolution: "electron-to-chromium@npm:1.4.442"
+  checksum: 2905d01dc9b888ec2b3687801d130e868e951052d856727843e1ed22377e7887d472fd67854392c3944ea329865581a634e1e32e9c077dac63e1542fbc9847d2
   languageName: node
   linkType: hard
 
@@ -1940,8 +1940,8 @@ __metadata:
   linkType: hard
 
 "rollup@npm:^3.21.0":
-  version: 3.25.2
-  resolution: "rollup@npm:3.25.2"
+  version: 3.25.3
+  resolution: "rollup@npm:3.25.3"
   dependencies:
     fsevents: ~2.3.2
   dependenciesMeta:
@@ -1949,7 +1949,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 80034ec8d71022b816cd31c24455d7b06ab8d8ff49ab9e583ceb03e2ebd0f6ad00824c6257fa4f8d12a12c2dceda999cec9509c1fff956e8a707b0add1bf2d9c
+  checksum: 397965706bb46a217e2815995133c11ce9a843e7b80018a91594d36d7a7708fe3a33acd1635deaa3138c42918397f38b32ca975951519fdfe3b4201875ecfd3d
   languageName: node
   linkType: hard
 
@@ -2060,12 +2060,12 @@ __metadata:
   linkType: hard
 
 "solid-js@npm:^1.7.0":
-  version: 1.7.6
-  resolution: "solid-js@npm:1.7.6"
+  version: 1.7.7
+  resolution: "solid-js@npm:1.7.7"
   dependencies:
     csstype: ^3.1.0
     seroval: ^0.5.0
-  checksum: 35306e7f16309075f41caec5aeaa832ecd7795e908195a55e9505e0840e8b2d0cbf04a3531ad9df5bce6a96ab595b1c754513123d612571d3d28783e3418af9c
+  checksum: 89efcb68e78d56c29bd1dcc6e5c17088ba9dc41f95c30465c25554ff55c7eb8a056733490fdc740fa321e221b5d206f8ba39979a13dd8d1579283ecd974b58da
   languageName: node
   linkType: hard
 
