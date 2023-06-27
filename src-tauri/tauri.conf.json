@@ -23,6 +23,9 @@
       "window": {
         "close": true,
         "hide": true
+      },
+      "globalShortcut": {
+        "all": true
       }
     },
     "bundle": {

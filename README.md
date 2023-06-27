@@ -99,3 +99,18 @@ To publish a new release, follow this process:
 
 - [ ] Build Flatpak:
   - [ ] Example: https://github.com/hadess/flathub/tree/d4b53ff829e0917c5129294132f619e5f12d337c
+  
+  - [ ] Autostart: use dbus portals https://github.com/diwic/dbus-rs/blob/master/dbus/examples/properties.rs
+  
+    ```python
+    bus = dbus.SessionBus()
+    obj = bus.get_object("org.freedesktop.portal.Desktop", "/org/freedesktop/portal/desktop")
+    inter = dbus.Interface(obj, "org.freedesktop.portal.Background")
+    res = inter.RequestBackground('', {
+        'reason': 'Emote autostart',
+        'autostart': True, 'background': True,
+        'commandline': dbus.Array(['emote'])
+    })
+    ```
+  
+    

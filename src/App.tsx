@@ -30,7 +30,7 @@ function App(): any {
   };
   document.addEventListener('keypress', handleKeypress);
 
-  // Close when click out (unfortunatly also when right click)
+  // Close when click out, also handled in main.rs, added here to try to fix issue with focus
   const focusListener = listen(TauriEvent.WINDOW_BLUR, () => {
     appWindow.hide()
   });
