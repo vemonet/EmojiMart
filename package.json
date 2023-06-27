@@ -1,15 +1,17 @@
 {
   "name": "emoji-mart-app",
+  "private": true,
   "version": "0.1.1",
+  "license": "MIT",
   "description": "Emoji picker for desktop. Built with the Emoji Mart web component, and packaged as a tauri app.",
   "scripts": {
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "fmt": "prettier \"**/*.{ts,tsx,js,cjs,json,md,html}\" --ignore-path .gitignore --write"
   },
-  "license": "MIT",
   "dependencies": {
     "@emoji-mart/data": "^1.1.2",
     "@tauri-apps/api": "^1.4.0",
@@ -19,8 +21,23 @@
   "devDependencies": {
     "@tauri-apps/cli": "^1.4.0",
     "@types/node": "^18.7.10",
+    "prettier": "^2.8.8",
     "typescript": "^4.9.5",
     "vite": "^4.2.1",
     "vite-plugin-solid": "^2.5.0"
+  },
+  "packageManager": "yarn@3.4.1",
+  "prettier": {
+    "trailingComma": "none",
+    "semi": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "arrowParens": "avoid",
+    "useTabs": false,
+    "printWidth": 120,
+    "pluginSearchDirs": [
+      "."
+    ]
   }
 }

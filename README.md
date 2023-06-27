@@ -2,13 +2,13 @@
 
 Modern emoji picker popup app for desktop, based on the [Emoji Mart](https://github.com/missive/emoji-mart) web component.
 
-* 🍾 Built as a popup: quick invocation through your system custom shortcuts, and disappears when not needed, does not stay as a standalone window, does not run in the background
-* 🔎 Search text box automatically focused and ready to type when invoked
-* ⌨️ Can use the keyboard to navigate and select emojis
-* 🧠 Remembers your favorite emojis
-* ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
-* 🧑‍🚀 Uses modern and flexible technologies (JSX for UI, Rust for cross-platform compilation, what else?), making it easier to maintain and build upon in the future
-* ✒️ Selected emoji automatically pasted to your currently focused app (on Linux X11 only)
+- 🍾 Built as a popup: quick invocation through your system custom shortcuts, and disappears when not needed, does not stay as a standalone window, does not run in the background
+- 🔎 Search text box automatically focused and ready to type when invoked
+- ⌨️ Can use the keyboard to navigate and select emojis
+- 🧠 Remembers your favorite emojis
+- ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
+- 🧑‍🚀 Uses modern and flexible technologies (JSX for UI, Rust for cross-platform compilation, what else?), making it easier to maintain and build upon in the future
+- ✒️ Selected emoji automatically pasted to your currently focused app (on Linux X11 only)
 
 Built with [Tauri](https://tauri.app/), [Solid JS](https://www.solidjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 
@@ -27,6 +27,7 @@ flatpak install io.github.vemonet.EmojiMart
 ```
 
 You can then create a custom system keyboard shortcut, start the emoji picker with the command:
+
 ```bash
 flatpak run io.github.vemonet.EmojiMart
 ```
@@ -70,19 +71,13 @@ See pre-requesites to run tauri: https://tauri.app/v1/guides/getting-started/pre
 Additional dependencies for Linux:
 
 ```bash
-sudo dnf install libX11-devel libxdo-devel libappindicator-gtk3
+sudo dnf install libX11-devel libxdo-devel
 ```
 
-Install npm packages:
+Install dependencies:
 
 ```bash
-yarn
-```
-
-On Linux you need to install additional dependencies for the system tray:
-
-```bash
-sudo dnf install libappindicator
+make install
 ```
 
 ### 🛩️ Run
@@ -90,7 +85,7 @@ sudo dnf install libappindicator
 In development mode, with automatic reload when the code changes:
 
 ```bash
-yarn tauri dev
+make dev
 ```
 
 > To see logs and debug: right click on the app window, and select `Inspect Element`
@@ -102,7 +97,7 @@ To build the **Flatpak** package checkout this repository: [github.com/vemonet/f
 Build `.AppImage` and `.deb` packages, or `.dmg`/`.exe` depending on your OS:
 
 ```bash
-yarn tauri build
+make build
 ```
 
 On Linux, install the previously built `EmojiMart.AppImage` as desktop app:
@@ -113,15 +108,13 @@ On Linux, install the previously built `EmojiMart.AppImage` as desktop app:
 
 ### ⏫ Upgrade dependencies
 
-Check latest: 
+Check latest:
 
-* EmojiMart web component: [npmjs.com/package/emoji-mart](https://www.npmjs.com/package/emoji-mart) and [npmjs.com/package/@emoji-mart/data](https://www.npmjs.com/package/@emoji-mart/data)
-* Tauri app: [tauri.app](https://tauri.app)
+- EmojiMart web component: [npmjs.com/package/emoji-mart](https://www.npmjs.com/package/emoji-mart) and [npmjs.com/package/@emoji-mart/data](https://www.npmjs.com/package/@emoji-mart/data)
+- Tauri app: [tauri.app](https://tauri.app)
 
 ```bash
-yarn up @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
-cd src-tauri
-cargo update
+make upgrade
 ```
 
 ### 🏷️ New release
@@ -133,8 +126,7 @@ To publish a new release, follow this process:
 2. Make sure the `yarn.lock` and `package-lock.json` have been updated (required for flatpak build):
 
    ```bash
-   yarn
-   npm i --save-exact
+   make update
    ```
 
 3. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, and create a draft release
@@ -148,7 +140,7 @@ To publish a new release, follow this process:
 Put your icon file named `app-icon.png` (ideally size 512 or 1024) at the root of the repo, and run (cf. [official docs](https://tauri.app/fr/v1/guides/features/icons/)):
 
 ```bash
-yarn tauri icon
+make icon
 ```
 
 ## 📋️ Notes
@@ -161,6 +153,6 @@ Inspired by [github.com/Simon-Laux/tauri-emoji-mart-app](https://github.com/Simo
 
 [Icon](https://www.vecteezy.com/vector-art/5726169-cardboard-box-funny-box-box-character-delivery-box-box-emoji) credits: <a href="https://www.vecteezy.com/members/duniaonme653898">duniaonme653898 on Vecteezy</a>
 
-### ☑️ Todo 
+### ☑️ Todo
 
 - [ ] Check if light/dark mode is picked up properly from the system settings

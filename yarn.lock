@@ -1144,6 +1144,7 @@ __metadata:
     "@tauri-apps/cli": ^1.4.0
     "@types/node": ^18.7.10
     emoji-mart: ^5.5.2
+    prettier: ^2.8.8
     solid-js: ^1.7.0
     typescript: ^4.9.5
     vite: ^4.2.1
@@ -1897,6 +1898,15 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 814e2126dacfea313588eda09cc99a9b4c26ec55c059188aa7a916d20d26d483483106dc5ff9e560731b59f45c5bb91b945dfadc670aed875cc90ddbbf4e787d
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^2.8.8":
+  version: 2.8.8
+  resolution: "prettier@npm:2.8.8"
+  bin:
+    prettier: bin-prettier.js
+  checksum: b49e409431bf129dd89238d64299ba80717b57ff5a6d1c1a8b1a28b590d998a34e083fa13573bc732bb8d2305becb4c9a4407f8486c81fa7d55100eb08263cf8
   languageName: node
   linkType: hard
 
