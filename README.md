@@ -2,11 +2,17 @@
 
 Modern emoji picker popup app for desktop, based on the [Emoji Mart](https://github.com/missive/emoji-mart) web component.
 
+* 🍾 Built as a popup: quick invocation with built-in shortcut `Alt+E`, and disappears when not needed, does not stay as a standalone window
+* 💽 Runs in the background, with a system tray icon to invoke or stop the app
+* ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows
+* 🧑‍🚀 Uses modern and popular technologies (JSX for UI, Rust for cross-platform compilation, what else?), making it easier to maintain and build upon in the future
+* 🪶 Light on resources (yet to be proven)
+
 Built with [Tauri](https://tauri.app/), [Solid JS](https://www.solidjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/). 
 
-Inspired from [github.com/Simon-Laux/tauri-emoji-mart-app](https://github.com/Simon-Laux/tauri-emoji-mart-app), difference are that we use Solid JS instead of React, the title bar is gone, window size has been improved, and the window pops in the middle of the screen.
-
 ![Emoji Mart screenshot](https://raw.githubusercontent.com/vemonet/EmojiMart/main/public/screenshot.png)
+
+> Inspired by [github.com/Simon-Laux/tauri-emoji-mart-app](https://github.com/Simon-Laux/tauri-emoji-mart-app), difference are that we use Solid JS instead of React, and the popup design and performances have been improved.
 
 ## 📥️ Installation
 
@@ -40,6 +46,12 @@ Recommended IDE Setup: [VS Code](https://code.visualstudio.com/) + [Tauri](https
 yarn
 ```
 
+On Linux you need to install additional dependencies for the system tray:
+
+```bash 
+sudo dnf install libappindicator
+```
+
 ### 🛩️ Run
 
 In development mode, with automatic reload when the code changes:
@@ -68,7 +80,7 @@ On Linux, install the previously built `EmojiMart.AppImage` as desktop app:
 
 To publish a new release, follow this process:
 
-1. Make sure you have changed the version in: `package.json`, `src-tauri/Cargo.toml` and `tauri.conf.json`
+1. Make sure you have changed the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`
 
 2. Update the `yarn.lock` and `package-lock.json` (required for flatpak build):
 
@@ -83,11 +95,5 @@ To publish a new release, follow this process:
 
 ## 📋️ Todo
 
-- [ ] Improve popup speed: 
-  - [ ] Calling the AppImage creates a new window, instead of reusing open processes
-  - [x] Checkout tauri docs to run in the background: https://tauri.app/fr/v1/guides/features/system-tray/#preventing-the-app-from-closing
-  - [ ] Try to not close the window (hide?), and bring it back to the front instead of creating a new window when the AppImage is called?
-  - [ ] Look into tauri global shortcut to hide/show: https://tauri.app/fr/v1/api/js/globalshortcut/
-- [ ] Closing the window when clickout with the `WINDOW_BLUR` event is also triggered when running in development, which is not convenient for inspecting the element
 - [ ] Build Flatpak: 
   - [ ] Example: https://github.com/hadess/flathub/tree/d4b53ff829e0917c5129294132f619e5f12d337c

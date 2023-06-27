@@ -1,7 +1,8 @@
 import data from "@emoji-mart/data";
 import { Picker } from 'emoji-mart'
-import { clipboard, window } from "@tauri-apps/api";
+import { clipboard } from "@tauri-apps/api";
 import { listen, TauriEvent } from '@tauri-apps/api/event'
+import { appWindow } from '@tauri-apps/api/window'
 import { onCleanup } from 'solid-js';
 
 export interface EmojiData {
@@ -17,22 +18,21 @@ function App(): any {
   // Add to clipboard and close when clicking an emoji
   const onEmojiSelect = (emoji: EmojiData) => {
     clipboard.writeText(emoji.native);
-    setTimeout(() => window.appWindow.close())
+    setTimeout(() => appWindow.hide())
   };
 
   // Close when hit <Esc>
   const handleKeypress = (event: any) => {
     if (event.code === "Escape") {
-      window.appWindow.close()
+      appWindow.hide()
     }
+    // TODO: else focus on the picker search input?
   };
   document.addEventListener('keypress', handleKeypress);
 
   // Close when click out (unfortunatly also when right click)
-  // TODO: dont add this listener when in dev mode
   const focusListener = listen(TauriEvent.WINDOW_BLUR, () => {
-    window.appWindow.close()
-    // window.appWindow.hide()
+    appWindow.hide()
   });
 
   onCleanup(() => {

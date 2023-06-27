@@ -11,13 +11,18 @@
     "version": "0.1.1"
   },
   "tauri": {
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    },
     "allowlist": {
       "all": false,
       "clipboard": {
         "writeText": true
       },
       "window": {
-        "close": true
+        "close": true,
+        "hide": true
       }
     },
     "bundle": {
@@ -37,8 +42,8 @@
     },
     "windows": [
       {
-        "alwaysOnTop": false,
         "decorations": false,
+        "alwaysOnTop": true,
         "transparent": true,
         "center": true,
         "resizable": true,

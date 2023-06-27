@@ -4,7 +4,7 @@
 VERSION="0.1.0"
 
 if [ -z $1 ]; then
-    echo "⏳️ Downloading Emoji Mart AppImage and its desktop app..."
+    echo "⏳️ Downloading Emoji Mart AppImage and its desktop file..."
     curl -L -o $HOME/.local/bin/EmojiMart.AppImage https://github.com/vemonet/EmojiMart/releases/download/v$VERSION/emoji-mart_$VERSION\_amd64.AppImage
     curl -L -o $HOME/.local/share/applications/EmojiMart.desktop "https://github.com/vemonet/EmojiMart/blob/main/public/EmojiMart.desktop?raw=true"
 else
