@@ -18,7 +18,7 @@ function App(): any {
   const onEmojiSelect = (emoji: EmojiData) => {
     clipboard.writeText(emoji.native)
     appWindow.hide()
-    invoke('trigger_paste')
+    invoke('trigger_paste', { emoji: emoji.native })
   }
 
   // Close when hit <Esc>

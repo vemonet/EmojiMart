@@ -26,7 +26,6 @@
     "vite": "^4.2.1",
     "vite-plugin-solid": "^2.5.0"
   },
-  "packageManager": "yarn@3.4.1",
   "prettier": {
     "trailingComma": "none",
     "semi": false,

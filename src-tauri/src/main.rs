@@ -1,8 +1,10 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use std::env;
 use std::process::Command;
 use std::{thread, time::Duration};
+use tauri::ClipboardManager;
 
 // Time waited for the paste to be done, before closing the window, in ms
 const SPAWN_WAIT: u64 = 50;
@@ -13,7 +15,7 @@ fn main() {
         .on_window_event(|event| match event.event() {
             tauri::WindowEvent::Focused(false) => {
                 // Close the window automatically when the user clicks out
-                // Use thread to avoid killing before pasting is done
+                // Use thread sleep to avoid killing before pasting is done
                 thread::spawn(move || {
                     thread::sleep(Duration::from_millis(SPAWN_WAIT));
                     event.window().close().unwrap();
@@ -26,26 +28,27 @@ fn main() {
 }
 
 #[tauri::command]
-async fn trigger_paste(window: tauri::Window) {
-    println!("PASTING!");
+async fn trigger_paste(emoji: &str, app_handle: tauri::AppHandle) -> Result<String, ()> {
+    // TODO: for some reason when "xdotool key something" or "xdotool type something" is triggered from rust
+    // it erases the clipboard. It does not happen when xdotool is run directly from the terminal though
     #[cfg(target_os = "linux")]
     {
-        Command::new("xdotool")
-            .arg("key")
-            .arg("ctrl+v")
-            .spawn()
-            .expect("paste command failed to start");
-
-        // Spawning a thread to close the app after xdotool has been executed
-        // Otherwise it has not the time to paste
-        thread::spawn(move || {
-            thread::sleep(Duration::from_millis(SPAWN_WAIT));
-            window.close().unwrap();
-        });
+        // Only paste on x11
+        let window_session = env::var("XDG_SESSION_TYPE").unwrap_or_else(|_| "wayland".to_string());
+        if window_session.to_lowercase() == "x11" {
+            Command::new("xdotool")
+                .arg("key")
+                .arg("ctrl+shift+v")
+                .spawn()
+                .expect("paste command failed to start");
+            // For some reason adding this additional paste of the emoji allows to keep the previous clipboard
+            app_handle.clipboard_manager().write_text(emoji).unwrap();
+        }
     }
 
-    #[cfg(not(target_os = "linux"))]
-    window.close().unwrap();
+    // #[cfg(not(target_os = "linux"))]
+    // window.close().unwrap();
+    Ok(emoji.to_string())
 }
 
 // Enigo bug with Tauri: https://github.com/enigo-rs/enigo/issues/153
