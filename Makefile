@@ -6,7 +6,7 @@ install:
 	rustup component add rustfmt
 
 upgrade:
-	yarn up @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
+	yarn upgrade @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
 	cd src-tauri && cargo update
 
 dev:
