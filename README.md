@@ -1,18 +1,18 @@
 # <span><img width="35" height="35" src="https://github.com/vemonet/EmojiMart/blob/main/src-tauri/icons/128x128.png"></span> Emoji Mart desktop popup
 
-Modern emoji picker popup app for desktop, based on the [Emoji Mart](https://github.com/missive/emoji-mart) web component.
+Modern emoji picker popup app for desktop, based on the amazing [Emoji Mart](https://github.com/missive/emoji-mart) web component.
 
 - 🍾 Built as a popup: quick invocation through your system custom shortcuts, and disappears when not needed, does not stay as a standalone window, does not run in the background
 - 🔎 Search text box automatically focused and ready to type when invoked
 - ⌨️ Can use the keyboard to navigate and select emojis
 - 🧠 Remember your favorite emojis
 - ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
-- 🧑‍🚀 Uses modern and flexible technologies (JSX for UI, Rust for cross-platform compilation, what else?), making it easier to maintain and build upon in the future
-- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app instead of being added to the clipboard! (it allows to uses emojis without losing what was copied before)
-
-Built with [Tauri](https://tauri.app/), [Solid JS](https://www.solidjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
+- 🧑‍🚀 Uses modern and flexible technologies (TSX for the UI, Rust for the cross-platform compilation, what else?), making it easier to maintain and build upon in the future
+- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app, instead of being added to the clipboard! (it allows to uses emojis without losing what was copied before)
 
 ![Emoji Mart screenshot](https://raw.githubusercontent.com/vemonet/EmojiMart/main/public/screenshot.png)
+
+Built with [Tauri](https://tauri.app/), [Solid JS](https://www.solidjs.com/), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 
 ## 📥️ Installation
 
