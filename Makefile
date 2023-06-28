@@ -5,7 +5,8 @@ install:
 	yarn
 	rustup component add rustfmt
 
-update:
+lockfile:
+	rm -rf node_modules
 	npm i --save-exact
 	yarn
 
