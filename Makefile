@@ -5,11 +5,6 @@ install:
 	yarn
 	rustup component add rustfmt
 
-lockfile:
-	rm -rf node_modules
-	npm i --save-exact
-	yarn
-
 upgrade:
 	yarn up @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
 	cd src-tauri && cargo update

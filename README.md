@@ -123,17 +123,11 @@ To publish a new release, follow this process:
 
 1. Make sure you have changed the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`
 
-2. Make sure the `yarn.lock` and `package-lock.json` have been updated (required for flatpak build):
+2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, and create a draft release
 
-   ```bash
-   make update
-   ```
+3. Then you can review the draft on the [**Releases** page](https://github.com/vemonet/EmojiMart/releases): click **Generate release notes**, and click **Publish release**
 
-3. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, and create a draft release
-
-4. Then you can review the draft on the [**Releases** page](https://github.com/vemonet/EmojiMart/releases): click **Generate release notes**, and click **Publish release**
-
-5. Finally update the tag on the flathub repository to trigger a new release on flathub.
+4. Finally update the tag on the flathub repository to trigger a new release on flathub.
 
 ### 🔄 Change icon
 
