@@ -5,7 +5,7 @@ Modern emoji picker popup app for desktop, based on the [Emoji Mart](https://git
 - 🍾 Built as a popup: quick invocation through your system custom shortcuts, and disappears when not needed, does not stay as a standalone window, does not run in the background
 - 🔎 Search text box automatically focused and ready to type when invoked
 - ⌨️ Can use the keyboard to navigate and select emojis
-- 🧠 Remembers your favorite emojis
+- 🧠 Remember your favorite emojis
 - ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
 - 🧑‍🚀 Uses modern and flexible technologies (JSX for UI, Rust for cross-platform compilation, what else?), making it easier to maintain and build upon in the future
 - ✒️ Selected emoji automatically pasted to your currently focused app (on Linux X11 only)
@@ -103,7 +103,7 @@ make build
 On Linux, install the previously built `EmojiMart.AppImage` as desktop app:
 
 ```bash
-./install.sh local
+make desktop-local
 ```
 
 ### ⏫ Upgrade dependencies

@@ -6,8 +6,8 @@ install:
 	rustup component add rustfmt
 
 update:
-	yarn
 	npm i --save-exact
+	yarn
 
 upgrade:
 	yarn up @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
@@ -33,5 +33,5 @@ desktop-local:
 	cp src-tauri/icons/icon.png ~/.local/share/applications/EmojiMart.png
 
 clean:
-	rm -rf .flatpak-builder build/
+	rm -rf .flatpak-builder build/ src-tauri/target
 	rm -rf ~/.local/share/applications/EmojiMart.* ~/.local/bin/EmojiMart.AppImage
