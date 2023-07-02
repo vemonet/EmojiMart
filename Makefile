@@ -4,12 +4,17 @@ OS := $(shell uname)
 install:
 	yarn
 	rustup component add rustfmt
+	git clone https://github.com/vemonet/ydotool -b no-scdoc
+	mkdir ydotool/build
+	cd ydotool/build && cmake .. && make -j `nproc`
+	cp ydotool/build/ydotool* ~/.local/bin
 
 upgrade:
 	yarn upgrade @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
 	cd src-tauri && cargo update
 
 dev:
+	ydotoold &
 	yarn tauri dev
 
 build:
@@ -29,5 +34,6 @@ desktop-local:
 	cp src-tauri/icons/icon.png ~/.local/share/applications/EmojiMart.png
 
 clean:
+	pkill ydotoold
 	rm -rf .flatpak-builder build/ src-tauri/target
 	rm -rf ~/.local/share/applications/EmojiMart.* ~/.local/bin/EmojiMart.AppImage

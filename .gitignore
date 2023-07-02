@@ -13,3 +13,4 @@ vite.config.ts.timestamp-*
 dist
 .yarn
 src-tauri/target/
+ydotool

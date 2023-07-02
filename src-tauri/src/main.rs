@@ -7,7 +7,7 @@ use std::{thread, time::Duration};
 use tauri::ClipboardManager;
 
 // Time waited for the paste to be done, before closing the window, in ms
-const SPAWN_WAIT: u64 = 500;
+const SPAWN_WAIT: u64 = 50;
 
 // Wayland paste: use wayland_client::protocol::wl_keyboard::WlKeyboard;
 // https://github.com/search?q=wl_keyboard+language%3ARust&type=code&l=Rust
@@ -41,18 +41,18 @@ fn main() {
         //     Ok(())
         // })
 
-        // .on_window_event(|event| match event.event() {
-        //     tauri::WindowEvent::Focused(false) => {
-        //         // Close the window automatically when the user clicks out
-        //         // Use thread sleep to avoid killing before pasting is done
-        //         thread::spawn(move || {
-        //             thread::sleep(Duration::from_millis(SPAWN_WAIT*2));
-        //             event.window().close().unwrap();
-        //             // event.window().hide().unwrap();
-        //         });
-        //     }
-        //     _ => {}
-        // })
+        .on_window_event(|event| match event.event() {
+            tauri::WindowEvent::Focused(false) => {
+                // Close the window automatically when the user clicks out
+                // Use thread sleep to avoid killing before pasting is done
+                thread::spawn(move || {
+                    thread::sleep(Duration::from_millis(SPAWN_WAIT));
+                    event.window().close().unwrap();
+                    // event.window().hide().unwrap();
+                });
+            }
+            _ => {}
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

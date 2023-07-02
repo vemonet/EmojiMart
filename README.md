@@ -10,7 +10,7 @@ Modern emoji picker popup app for desktop, based on the amazing [Emoji Mart](htt
 - 🧑‍🚀 Uses modern and flexible technologies (TSX for the UI, Rust for the cross-platform compilation, what else?), making it easier to maintain and build upon in the future
 - ✒️ On x11 the selected emoji is automatically pasted to your currently focused app, instead of being added to the clipboard! (it allows to uses emojis without losing what was copied before). This can be enabled also on Wayland, but require to open permissions of `/dev/uinput`
 
-⚠️🆕 This project just had its first release, it should be already usable, but you might face bugs as it is not yet battle tested (especially regarding auto-paste). Please report any weird behavior in the GitHub issues.
+⚠️🆕 This project just had its **first release**, it should be already usable, but you might face bugs as it is not yet battle tested (especially regarding auto-paste). Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
 
 ![Emoji Mart screenshot](https://raw.githubusercontent.com/vemonet/EmojiMart/main/public/screenshot.png)
 
@@ -94,8 +94,8 @@ Inspired by:
 
 ### ☑️ Todo
 
-- [ ] Improve the process to add the emoji to the clipboard/paste/close the app. Currently there is an issue with `xdotool` clearing the clipboard when called from tauri
-- [ ] Add auto-paste on Wayland with `ydotool`, this will require some permission wizardry from the user to enable access to `/dev/uinput` in the flatpak container(cf. https://github.com/flatpak/flatpak/issues/4137), and might also require to run in the background (for the `ydotoold` daemon)
+- [ ] On x11: improve the process to add the emoji to the clipboard/paste/close the app. Currently there is an issue with `xdotool` clearing the clipboard when called from tauri
+- [ ] On wayland: add auto-paste on Wayland with `ydotool`, this will require some permission wizardry from the user to enable access to `/dev/uinput` in the flatpak container(cf. https://github.com/flatpak/flatpak/issues/4137), and might also require to run in the background (for the `ydotoold` daemon)
 - [ ] Check if working properly on MacOS
 - [ ] Check if working properly on Windows
 - [ ] Add auto-paste on Windows and MacOS when the compatibility between Enigo and Tauri is resolved (cf. https://github.com/enigo-rs/enigo/issues/15 and https://github.com/tauri-apps/tauri/issues/6421)
@@ -106,11 +106,13 @@ Inspired by:
 
 Recommended IDE Setup: [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
-### 🧶 Install
+Requirements: [yarn v1](https://classic.yarnpkg.com) (v3 is not supported by flatpak to generate npm sources)
 
 See pre-requesites to run tauri: https://tauri.app/v1/guides/getting-started/prerequisites
 
-Additional dependencies for Linux:
+### 🧶 Install
+
+Additional dependencies for Linux to enable auto-paste on x11:
 
 ```bash
 sudo dnf install libX11-devel libxdo-devel
@@ -155,7 +157,7 @@ You might want to upgrade the latest versions of:
 - Tauri app: [tauri.app](https://tauri.app)
 - EmojiMart web component: [npmjs.com/package/emoji-mart](https://www.npmjs.com/package/emoji-mart) and [npmjs.com/package/@emoji-mart/data](https://www.npmjs.com/package/@emoji-mart/data)
 
-Run 
+To automatically upgrade dependencies with `yarn` and `cargo` you can run:
 
 ```bash
 make upgrade
@@ -173,7 +175,7 @@ To publish a new release, follow this process:
 
 4. Finally update the tag on the flathub repository to trigger a new release on flathub.
 
-### 🔄 Change icon
+### 🖼️ Change icon
 
 Put your icon file named `app-icon.png` (ideally size 512 or 1024) at the root of the repo, and run (cf. [official docs](https://tauri.app/fr/v1/guides/features/icons/)):
 
