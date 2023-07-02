@@ -40,7 +40,9 @@
 			if (sysTheme) theme = sysTheme
 		}
 		if (acceptedThemes.indexOf(theme) === -1) {
-			console.error(`The theme provided "${theme}" is not valid, we will use auto by default. Please use one of: light, dark, auto.`)
+			console.error(
+				`The theme provided "${theme}" is not valid, we will use auto by default. Please use one of: light, dark, auto.`
+			)
 			theme = 'auto'
 		}
 

@@ -1,9 +1,11 @@
 OS := $(shell uname)
-.PHONY: install update upgrade dev build icon fmt desktop-local clean
+.PHONY: install install-wayland update upgrade dev build icon fmt desktop-local clean
 
 install:
 	yarn
 	rustup component add rustfmt
+
+install-wayland:
 	git clone https://github.com/vemonet/ydotool -b no-scdoc
 	mkdir ydotool/build
 	cd ydotool/build && cmake .. && make -j `nproc`
@@ -20,6 +22,11 @@ dev:
 build:
 	yarn tauri build
 
+release:
+	sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\",/\"version\": \"$(version)\",/g" ./package.json
+	sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"$(version)\"/g" ./src-tauri/tauri.conf.json
+	sed -i "s/version = \"[0-9]*\.[0-9]*\.[0-9]*\"/version = \"$(version)\"/g" ./src-tauri/Cargo.toml
+
 icon:
 	echo "Put the icon in this repository root folder, and name it app-icon.png"
 	yarn tauri icon
@@ -27,6 +34,7 @@ icon:
 fmt:
 	cd src-tauri && cargo fmt
 	yarn fmt
+	yarn lint
 
 desktop-local:
 	cp "src-tauri/target/release/bundle/appimage/emoji-mart_*_amd64.AppImage" "~/.local/bin/EmojiMart.AppImage"

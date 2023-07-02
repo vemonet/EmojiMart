@@ -14,12 +14,14 @@ const SPAWN_WAIT: u64 = 50;
 
 fn main() {
     // ydotoold --socket-path="$HOME/.ydotool_socket" --socket-own="$(id -u):$(id -g)"
-    match Command::new("ydotoold")
-        .spawn()
-        {
-            Ok(_child) => {println!("[EmojiMart] ydotoold daemon started successfully");}
-            Err(error) => {eprintln!("[EmojiMart] ydotoold daemon failed to start: {}", error);}
+    match Command::new("ydotoold").spawn() {
+        Ok(_child) => {
+            println!("[EmojiMart] ydotoold daemon started successfully");
         }
+        Err(error) => {
+            eprintln!("[EmojiMart] ydotoold daemon failed to start: {}", error);
+        }
+    }
 
     println!("STARTING");
 
@@ -40,7 +42,6 @@ fn main() {
         //     }
         //     Ok(())
         // })
-
         .on_window_event(|event| match event.event() {
             tauri::WindowEvent::Focused(false) => {
                 // Close the window automatically when the user clicks out
@@ -57,9 +58,13 @@ fn main() {
         .expect("error while running tauri application");
 }
 
-
 #[tauri::command]
-async fn trigger_paste(emoji: &str, keep: Option<bool>, previous: Option<&str>, app_handle: tauri::AppHandle) -> Result<String, ()> {
+async fn trigger_paste(
+    emoji: &str,
+    keep: Option<bool>,
+    previous: Option<&str>,
+    app_handle: tauri::AppHandle,
+) -> Result<String, ()> {
     println!("PASTE keep {} {}", keep.unwrap(), previous.unwrap());
     // let previous_str = previous.unwrap().to_string().to_owned();
 
@@ -78,7 +83,6 @@ async fn trigger_paste(emoji: &str, keep: Option<bool>, previous: Option<&str>, 
             // For some reason adding this additional paste of the emoji allows to keep the previous clipboard,
             // and paste the right emoji with xdotool
             app_handle.clipboard_manager().write_text(emoji).unwrap();
-
         } else {
             // Paste on wayland with ydotool
             println!("Emoji to paste: {}", emoji);
@@ -87,14 +91,14 @@ async fn trigger_paste(emoji: &str, keep: Option<bool>, previous: Option<&str>, 
             // thread::sleep(Duration::from_millis(SPAWN_WAIT));
 
             match Command::new("ydotool")
-            .arg("key")
-            .arg("29:1") // ctrl
-            .arg("42:1") // shift
-            .arg("47:1") // v
-            .arg("47:0")
-            .arg("42:0")
-            .arg("29:0")
-            .spawn()
+                .arg("key")
+                .arg("29:1") // ctrl
+                .arg("42:1") // shift
+                .arg("47:1") // v
+                .arg("47:0")
+                .arg("42:0")
+                .arg("29:0")
+                .spawn()
             {
                 Ok(_child) => {
                     // println!("PUTTING BACK PERRRVIOUS {} {}", previous.unwrap(), keep.unwrap());

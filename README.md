@@ -28,19 +28,44 @@ or
 flatpak install io.github.vemonet.EmojiMart
 ```
 
-You can then create a custom system keyboard shortcut, start the emoji picker with the command:
+⌨️ The easiest way to use Emoji Mart is to invoke it with a **custom system keyboard shortcut**, create one to register the command that starts the emoji picker:
 
 ```bash
 flatpak run io.github.vemonet.EmojiMart
 ```
 
-If you are using **Wayland on GNOME** we recommend to enable new windows to be **centered**, otherwise the popup will appear on the top left corner. If you are using Mutter, the default window composer for GNOME, you can do so by running the following command:
+<details><summary>👣 More info on defining shortcuts in GNOME Shell here</summary>
+
+Go to **Settings** > **Keyboard** > **View and Customize Shortcuts** > **Custom Shortcuts**
+
+Or you can do it from the terminal, but you will need to adapt it if you already have existing custom shortcuts registered
+
+```bash
+# Check existing shortcuts list:
+gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings
+
+# Create shortcut 0 triggered with Super+E
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Emoji Mart'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'flatpak run io.github.vemonet.EmojiMart'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>e'
+```
+
+</details>
+
+🌓 Emoji Mart will try to use your system theme, but you can also set a **specific theme** using the `--theme` argument when starting the app, possible values are `dark`, `light`, and `auto`:
+
+```bash
+flatpak run io.github.vemonet.EmojiMart --theme light
+```
+
+👣 If you are using **Wayland on GNOME** we recommend to enable new windows to be **centered**, otherwise the popup will appear on the top left corner. If you are using Mutter, the default window composer for GNOME, you can do so by running the following command:
 
 ```bash
 gsettings set org.gnome.mutter center-new-windows true
 ```
 
-To enable **auto-paste to work on Wayland** you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to automatically paste on Wayland, let us know if you know of a better way in the issues. Add this udev rule to enable your user to access `/dev/uinput`:
+⚡ To enable **auto-paste to work on Wayland** you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to automatically paste on Wayland, please let us know if you know of a better way in the issues! To enable auto-paste, add this udev rule which will enable your user to access `/dev/uinput`:
 
 ```bash
 echo "KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"$(id -gn)\", TAG+=\"uaccess\"" | sudo tee -a /etc/udev/rules.d/99-uinput.rules
@@ -48,8 +73,9 @@ echo "KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"$(id -gn)\", TAG+=\"uaccess\"" 
 sudo udevadm control --reload-rules
 ```
 
-<details><summary>Alternatively you can also use the <code>.AppImage</code> file</summary>
-Note this is not recommended, as the apps takes longer to startup than with the flatpak.
+<details><summary>Alternatively, but not recommended, you can also use the <code>.AppImage</code> file</summary>
+
+This is not recommended, as the apps takes longer to startup than with the flatpak, and not all dependencies are included to auto-paste.
 
 Run this command to download the `.AppImage`, and create a desktop file for it:
 
@@ -59,7 +85,7 @@ curl -Ls https://raw.github.com/vemonet/EmojiMart/main/install.sh | bash
 
 Or manually download the `.AppImage` file from the [latest release](https://github.com/vemonet/EmojiMart/releases/latest), and install it.
 
-And you will need to make sure `xdotool` is installed on the system, e.g. for fedora:
+If you are using x11 you will need to make sure `xdotool` is installed on the system, e.g. for fedora:
 
 ```bash
 sudo dnf install libxdo-devel
@@ -124,6 +150,12 @@ Install dependencies:
 make install
 ```
 
+If you are developing on Wayland you will need to install extra dependencies (e.g. `ydotool` to auto-paste):
+
+```bash
+make install-wayland
+```
+
 ### 🛩️ Run
 
 In development mode, with automatic reload when the code changes:
@@ -168,6 +200,10 @@ make upgrade
 To publish a new release, follow this process:
 
 1. Make sure you have changed the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`
+
+   ```bash
+   make version=0.1.2 release
+   ```
 
 2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, and create a draft release
 
