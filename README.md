@@ -8,9 +8,10 @@ Modern emoji picker popup app for desktop, based on the amazing [Emoji Mart](htt
 - 🧠 Remember your favorite emojis
 - ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
 - 🧑‍🚀 Uses modern and flexible technologies (TSX for the UI, Rust for the cross-platform compilation, what else?), making it easier to maintain and build upon in the future
-- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app, instead of being added to the clipboard! (it allows to uses emojis without losing what was copied before). This can be enabled also on Wayland, but require to open permissions of `/dev/uinput`
+- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app, instead of being added to the clipboard! (it allows to uses emojis without losing what was copied before). 
+- ⚠️ Auto-paste can be enabled also on Wayland, but require to open permissions of `/dev/uinput`, which is not recommended for security.
 
-⚠️🆕 This project just had its **first release**, it should be already usable, but you might face bugs as it is not yet battle tested (especially regarding auto-paste). Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
+🆕 This project just had its **first release**, it should be already usable, but you might face bugs as it is not yet battle tested (especially regarding auto-paste). Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
 
 ![Emoji Mart screenshot](https://raw.githubusercontent.com/vemonet/EmojiMart/main/public/screenshot.png)
 
@@ -199,21 +200,25 @@ make upgrade
 
 To publish a new release, follow this process:
 
-1. Make sure you have changed the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`
+1. Changed the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`, you can use this script to do it automatically for a specific new version:
 
    ```bash
-   make version=0.1.2 release
+   make version=0.1.2 bump
    ```
 
-2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, and create a draft release
+2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub. 
+
+3. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, create a [new release on GitHub](https://github.com/vemonet/EmojiMart/releases), and update the version in the [flathub repo](https://github.com/flathub/io.github.vemonet.EmojiMart), which will trigger a new build and release on flathub. 
+
+<!--
 
 3. Then you can review the draft on the [**Releases** page](https://github.com/vemonet/EmojiMart/releases): click **Generate release notes**, and click **Publish release**
 
-4. Finally update the tag on the flathub repository to trigger a new release on flathub.
+4. Finally update the tag on the flathub repository to trigger a new release on flathub. -->
 
 ### 🖼️ Change icon
 
-Put your icon file named `app-icon.png` (ideally size 512 or 1024) at the root of the repo, and run (cf. [official docs](https://tauri.app/fr/v1/guides/features/icons/)):
+Put the new icon file named `app-icon.png` (ideally size 512 or 1024) at the root of the repo, and run (for more details see the [official docs](https://tauri.app/fr/v1/guides/features/icons/)):
 
 ```bash
 make icon

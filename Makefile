@@ -1,5 +1,5 @@
 OS := $(shell uname)
-.PHONY: install install-wayland update upgrade dev build icon fmt desktop-local clean
+.PHONY: install install-wayland upgrade dev build bump icon fmt desktop-local clean
 
 install:
 	yarn
@@ -22,7 +22,7 @@ dev:
 build:
 	yarn tauri build
 
-release:
+bump:
 	sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\",/\"version\": \"$(version)\",/g" ./package.json
 	sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"$(version)\"/g" ./src-tauri/tauri.conf.json
 	sed -i "s/version = \"[0-9]*\.[0-9]*\.[0-9]*\"/version = \"$(version)\"/g" ./src-tauri/Cargo.toml
