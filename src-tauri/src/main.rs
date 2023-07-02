@@ -41,26 +41,27 @@ fn main() {
         //     Ok(())
         // })
 
-        .on_window_event(|event| match event.event() {
-            tauri::WindowEvent::Focused(false) => {
-                // Close the window automatically when the user clicks out
-                // Use thread sleep to avoid killing before pasting is done
-                thread::spawn(move || {
-                    thread::sleep(Duration::from_millis(SPAWN_WAIT));
-                    event.window().close().unwrap();
-                    // event.window().hide().unwrap();
-                });
-            }
-            _ => {}
-        })
+        // .on_window_event(|event| match event.event() {
+        //     tauri::WindowEvent::Focused(false) => {
+        //         // Close the window automatically when the user clicks out
+        //         // Use thread sleep to avoid killing before pasting is done
+        //         thread::spawn(move || {
+        //             thread::sleep(Duration::from_millis(SPAWN_WAIT*2));
+        //             event.window().close().unwrap();
+        //             // event.window().hide().unwrap();
+        //         });
+        //     }
+        //     _ => {}
+        // })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
 
 
 #[tauri::command]
-async fn trigger_paste(emoji: &str, previous: Option<&str>, keep: Option<bool>, app_handle: tauri::AppHandle) -> Result<String, ()> {
-    println!("PASTE");
+async fn trigger_paste(emoji: &str, keep: Option<bool>, previous: Option<&str>, app_handle: tauri::AppHandle) -> Result<String, ()> {
+    println!("PASTE keep {} {}", keep.unwrap(), previous.unwrap());
+    // let previous_str = previous.unwrap().to_string().to_owned();
 
     #[cfg(target_os = "linux")]
     {
@@ -83,6 +84,7 @@ async fn trigger_paste(emoji: &str, previous: Option<&str>, keep: Option<bool>, 
             println!("Emoji to paste: {}", emoji);
             // Type don't work with emojis https://github.com/ReimuNotMoe/ydotool/issues/22
             // ydotool key 29:1 42:1 47:1 47:0 42:0 29:0
+            // thread::sleep(Duration::from_millis(SPAWN_WAIT));
 
             match Command::new("ydotool")
             .arg("key")
@@ -95,20 +97,43 @@ async fn trigger_paste(emoji: &str, previous: Option<&str>, keep: Option<bool>, 
             .spawn()
             {
                 Ok(_child) => {
+                    // println!("PUTTING BACK PERRRVIOUS {} {}", previous.unwrap(), keep.unwrap());
                     // if keep.unwrap_or(false) == true && previous.is_some() {
                     //     // Put back the previous item in the clipboard
-                    //     println!("TRY TO KEEP: {}", previous.unwrap().to_string());
-                    //     app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
+                    //     println!("KEEP SOME {}", previous.unwrap().to_string());
+                    //     // thread::sleep(Duration::from_millis(SPAWN_WAIT));
+                    //     // app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
+                    //     app_handle.clipboard_manager().write_text(previous_str).unwrap();
+                    //     // thread::spawn(move || {
+                    //     //     // thread::sleep(Duration::from_millis(SPAWN_WAIT*2));
+                    //     //     app_handle.clipboard_manager().write_text(previous_str).unwrap();
+                    //     // });
                     // }
                 }
                 Err(_error) => {}
             }
 
-            if keep.unwrap_or(false) == true && previous.is_some() {
-                // Put back the previous item in the clipboard
-                println!("TRY TO KEEP: {}", previous.unwrap().to_string());
-                app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
-            }
+            // if keep.unwrap_or(false) == true && previous.is_some() {
+            //     // Put back the previous item in the clipboard
+            //     println!("KEEP SOME {}", previous.unwrap());
+            //     // thread::sleep(Duration::from_millis(SPAWN_WAIT));
+            //     // app_handle.clipboard_manager().write_text(previous_str).unwrap();
+            //     app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
+            //     // app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
+
+            //     // println!("KEEP SOME DIRECTLY {}", previous.unwrap().to_string());
+            //     // thread::spawn(move || {
+            //     //     // thread::sleep(Duration::from_millis(SPAWN_WAIT*2));
+            //     //     app_handle.clipboard_manager().write_text(previous_str).unwrap();
+            //     // });
+            // }
+
+            // Command::new("ydotool")
+            //     .arg("type")
+            //     .arg(":grinning:")
+            //     .spawn()
+            //     .expect("ydotool paste command failed to start");
+            // wtype -M ctrl shift v -m ctrl
         }
     }
 

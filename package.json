@@ -1,42 +1,102 @@
 {
-  "name": "emoji-mart-app",
-  "private": true,
-  "version": "0.1.1",
-  "license": "MIT",
-  "description": "Emoji picker for desktop. Built with the Emoji Mart web component, and packaged as a tauri app.",
-  "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "tauri": "tauri",
-    "fmt": "prettier \"**/*.{ts,tsx,js,cjs,json,md,html}\" --ignore-path .gitignore --write"
-  },
-  "dependencies": {
-    "@emoji-mart/data": "^1.1.2",
-    "@tauri-apps/api": "^1.4.0",
-    "emoji-mart": "^5.5.2",
-    "solid-js": "^1.7.0"
-  },
-  "devDependencies": {
-    "@tauri-apps/cli": "^1.4.0",
-    "@types/node": "^18.7.10",
-    "prettier": "^2.8.8",
-    "typescript": "^4.9.5",
-    "vite": "^4.2.1",
-    "vite-plugin-solid": "^2.5.0"
-  },
-  "prettier": {
-    "trailingComma": "none",
-    "semi": false,
-    "tabWidth": 2,
-    "singleQuote": true,
-    "bracketSpacing": false,
-    "arrowParens": "avoid",
-    "useTabs": false,
-    "printWidth": 120,
-    "pluginSearchDirs": [
-      "."
-    ]
-  }
+	"name": "emoji-mart-app",
+	"version": "0.1.1",
+	"license": "MIT",
+	"description": "Emoji picker for desktop. Built with the Emoji Mart web component, and packaged as a tauri app.",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"test": "vitest",
+		"lint": "prettier --ignore-path .gitignore --check . && eslint . --ignore-path .gitignore",
+		"fmt": "prettier \"**/*.{svelte,ts,tsx,js,cjs,json,md,html}\" --ignore-path .gitignore --write"
+	},
+	"dependencies": {
+		"@emoji-mart/data": "^1.1.2",
+		"@tauri-apps/api": "^1.4.0",
+		"emoji-mart": "^5.5.2"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-static": "^1.0.0-next.50",
+		"@sveltejs/kit": "^1.20.4",
+		"@tauri-apps/cli": "^1.4.0",
+		"@types/cookie": "^0.5.1",
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"@typescript-eslint/parser": "^5.45.0",
+		"eslint": "^8.28.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte": "^2.30.0",
+		"prettier": "^2.8.0",
+		"prettier-plugin-svelte": "^2.10.1",
+		"svelte": "^4.0.0",
+		"svelte-check": "^3.4.3",
+		"tslib": "^2.4.1",
+		"typescript": "^5.0.0",
+		"vite": "^4.3.6",
+		"vitest": "^0.32.2"
+	},
+	"prettier": {
+		"useTabs": true,
+		"singleQuote": true,
+		"trailingComma": "none",
+		"printWidth": 100,
+		"plugins": [
+			"prettier-plugin-svelte"
+		],
+		"pluginSearchDirs": [
+			"."
+		],
+		"overrides": [
+			{
+				"files": "*.svelte",
+				"options": {
+					"parser": "svelte"
+				}
+			}
+		]
+	},
+	"eslintConfig": {
+		"root": true,
+		"extends": [
+			"eslint:recommended",
+			"plugin:@typescript-eslint/recommended",
+			"plugin:svelte/recommended",
+			"prettier"
+		],
+		"parser": "@typescript-eslint/parser",
+		"plugins": [
+			"@typescript-eslint"
+		],
+		"parserOptions": {
+			"sourceType": "module",
+			"ecmaVersion": 2020,
+			"extraFileExtensions": [
+				".svelte"
+			]
+		},
+		"env": {
+			"browser": true,
+			"es2017": true,
+			"node": true
+		},
+		"overrides": [
+			{
+				"files": [
+					"*.svelte"
+				],
+				"parser": "svelte-eslint-parser",
+				"parserOptions": {
+					"parser": "@typescript-eslint/parser"
+				}
+			}
+		],
+		"ignorePatterns": [
+			"yarn.lock"
+		]
+	}
 }

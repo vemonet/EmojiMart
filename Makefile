@@ -25,7 +25,7 @@ fmt:
 
 desktop-local:
 	cp "src-tauri/target/release/bundle/appimage/emoji-mart_*_amd64.AppImage" "~/.local/bin/EmojiMart.AppImage"
-	cp public/EmojiMart.desktop ~/.local/share/applications/
+	cp resources/EmojiMart.desktop ~/.local/share/applications/
 	cp src-tauri/icons/icon.png ~/.local/share/applications/EmojiMart.png
 
 clean:

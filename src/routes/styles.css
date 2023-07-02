@@ -1,0 +1,26 @@
+:root {
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+	background-color: transparent;
+}
+
+html,
+body {
+margin: 0;
+padding: 0;
+overflow: hidden;
+border-radius: 10px;
+}
+
+/* NOTE: control the emoji picker height here */
+em-emoji-picker {
+height: 550px;
+/* height: 100%; */
+max-height: 100%;
+width: 100%;
+--border-radius: 10px;
+--shadow: 10px;
+}
