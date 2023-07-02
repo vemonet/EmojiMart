@@ -14,7 +14,8 @@
     "allowlist": {
       "all": false,
       "clipboard": {
-        "writeText": true
+        "writeText": true,
+        "readText": true
       },
       "window": {
         "close": true,
@@ -29,6 +30,24 @@
       "targets": "all",
       "identifier": "io.github.vemonet.EmojiMart",
       "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"]
+    },
+    "cli": {
+      "description": "EmojiMart picker",
+      "longDescription": "EmojiMart picker",
+      "afterHelp": "Use --keep to keep the existing item in your clipboard,the emoji will not be copied to the clipboard, and you will only to rely on auto-paste",
+      "args": [
+        {
+          "name": "keep",
+          "short": "k"
+        },
+        {
+          "name": "theme",
+          "short": "t",
+          "takesValue": true,
+          "multiple": false,
+          "possibleValues": ["light", "dark", "auto"]
+        }
+      ]
     },
     "security": {
       "csp": null
