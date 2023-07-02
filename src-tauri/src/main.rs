@@ -60,7 +60,6 @@ async fn trigger_paste(
     previous: Option<&str>,
     app_handle: tauri::AppHandle,
 ) -> Result<String, ()> {
-
     #[cfg(target_os = "linux")]
     {
         let window_session = env::var("XDG_SESSION_TYPE").unwrap_or_else(|_| "wayland".to_string());
@@ -94,7 +93,10 @@ async fn trigger_paste(
                 Ok(_child) => {
                     // println!("Put back the previous item in the clipboard: {} {}", keep.unwrap(), previous.unwrap());
                     if keep.unwrap_or(false) == true && previous.is_some() {
-                        app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
+                        app_handle
+                            .clipboard_manager()
+                            .write_text(previous.unwrap().to_string())
+                            .unwrap();
                     }
                 }
                 Err(_error) => {}

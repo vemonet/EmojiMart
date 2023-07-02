@@ -68,7 +68,7 @@ gsettings set org.gnome.mutter center-new-windows true
 
 ##### ⚠️ Enable auto-paste on Wayland
 
-To enable auto-paste to work on Wayland you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to automatically paste on Wayland, please let us know if you know of a better way in the issues! 
+To enable auto-paste to work on Wayland you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to automatically paste on Wayland, please let us know if you know of a better way in the issues!
 
 First install directly from the GitHub release `.flatpak` (and not from the flathub release, which has reduced permissions):
 
