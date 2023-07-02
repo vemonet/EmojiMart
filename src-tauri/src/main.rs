@@ -9,9 +9,6 @@ use tauri::ClipboardManager;
 // Time waited for the paste to be done, before closing the window, in ms
 const SPAWN_WAIT: u64 = 50;
 
-// Wayland paste: use wayland_client::protocol::wl_keyboard::WlKeyboard;
-// https://github.com/search?q=wl_keyboard+language%3ARust&type=code&l=Rust
-
 fn main() {
     // ydotoold --socket-path="$HOME/.ydotool_socket" --socket-own="$(id -u):$(id -g)"
     match Command::new("ydotoold").spawn() {
@@ -22,8 +19,6 @@ fn main() {
             eprintln!("[EmojiMart] ydotoold daemon failed to start: {}", error);
         }
     }
-
-    println!("STARTING");
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![trigger_paste])
@@ -65,8 +60,6 @@ async fn trigger_paste(
     previous: Option<&str>,
     app_handle: tauri::AppHandle,
 ) -> Result<String, ()> {
-    println!("PASTE keep {} {}", keep.unwrap(), previous.unwrap());
-    // let previous_str = previous.unwrap().to_string().to_owned();
 
     #[cfg(target_os = "linux")]
     {
@@ -85,10 +78,8 @@ async fn trigger_paste(
             app_handle.clipboard_manager().write_text(emoji).unwrap();
         } else {
             // Paste on wayland with ydotool
-            println!("Emoji to paste: {}", emoji);
             // Type don't work with emojis https://github.com/ReimuNotMoe/ydotool/issues/22
             // ydotool key 29:1 42:1 47:1 47:0 42:0 29:0
-            // thread::sleep(Duration::from_millis(SPAWN_WAIT));
 
             match Command::new("ydotool")
                 .arg("key")
@@ -101,43 +92,13 @@ async fn trigger_paste(
                 .spawn()
             {
                 Ok(_child) => {
-                    // println!("PUTTING BACK PERRRVIOUS {} {}", previous.unwrap(), keep.unwrap());
-                    // if keep.unwrap_or(false) == true && previous.is_some() {
-                    //     // Put back the previous item in the clipboard
-                    //     println!("KEEP SOME {}", previous.unwrap().to_string());
-                    //     // thread::sleep(Duration::from_millis(SPAWN_WAIT));
-                    //     // app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
-                    //     app_handle.clipboard_manager().write_text(previous_str).unwrap();
-                    //     // thread::spawn(move || {
-                    //     //     // thread::sleep(Duration::from_millis(SPAWN_WAIT*2));
-                    //     //     app_handle.clipboard_manager().write_text(previous_str).unwrap();
-                    //     // });
-                    // }
+                    // println!("Put back the previous item in the clipboard: {} {}", keep.unwrap(), previous.unwrap());
+                    if keep.unwrap_or(false) == true && previous.is_some() {
+                        app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
+                    }
                 }
                 Err(_error) => {}
             }
-
-            // if keep.unwrap_or(false) == true && previous.is_some() {
-            //     // Put back the previous item in the clipboard
-            //     println!("KEEP SOME {}", previous.unwrap());
-            //     // thread::sleep(Duration::from_millis(SPAWN_WAIT));
-            //     // app_handle.clipboard_manager().write_text(previous_str).unwrap();
-            //     app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
-            //     // app_handle.clipboard_manager().write_text(previous.unwrap().to_string()).unwrap();
-
-            //     // println!("KEEP SOME DIRECTLY {}", previous.unwrap().to_string());
-            //     // thread::spawn(move || {
-            //     //     // thread::sleep(Duration::from_millis(SPAWN_WAIT*2));
-            //     //     app_handle.clipboard_manager().write_text(previous_str).unwrap();
-            //     // });
-            // }
-
-            // Command::new("ydotool")
-            //     .arg("type")
-            //     .arg(":grinning:")
-            //     .spawn()
-            //     .expect("ydotool paste command failed to start");
-            // wtype -M ctrl shift v -m ctrl
         }
     }
 

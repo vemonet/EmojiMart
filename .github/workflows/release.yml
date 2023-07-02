@@ -51,6 +51,10 @@ jobs:
           releaseDraft: false
           prerelease: false
 
+  # publish-flatpak:
+  #   uses: flathub/io.github.vemonet.EmojiMart/.github/workflows/publish.yml@main
+  #   secrets: inherit
+
   publish-flatpak:
     needs: publish-tauri
     permissions:
@@ -77,12 +81,12 @@ jobs:
         run: |
           PACKAGE_VERSION=$(node -p "require('./EmojiMart/package.json').version")
           echo "$PACKAGE_VERSION" >> $GITHUB_ENV
-          sed -i "s/tag: v[0-9]*\.[0-9]*\.[0-9]*$/tag: v$PACKAGE_VERSION/g" ./io.github.vemonet.EmojiMart/io.github.vemonet.EmojiMart.yml
-          sed -i "s/<\/releases>$/  <release version=\"$PACKAGE_VERSION\" date=\"$(date +%Y-%m-%d)\"\/>\\n  <\/releases>/g" ./io.github.vemonet.EmojiMart/io.github.vemonet.EmojiMart.appdata.xml
           cd io.github.vemonet.EmojiMart
+          sed -i "s/tag: v[0-9]*\.[0-9]*\.[0-9]*$/tag: v$PACKAGE_VERSION/g" ./io.github.vemonet.EmojiMart.yml
+          sed -i "s/<\/releases>$/  <release version=\"$PACKAGE_VERSION\" date=\"$(date +%Y-%m-%d)\"\/>\\n  <\/releases>/g" ./io.github.vemonet.EmojiMart.appdata.xml
           git add .
           git commit -m "🏷️ Updating release version to $PACKAGE_VERSION"
-          git push
+          git push -u origin master
 
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6.1
         with:

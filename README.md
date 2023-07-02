@@ -178,7 +178,7 @@ Build `.AppImage` and `.deb` packages, or `.dmg`/`.exe` depending on your OS:
 make build
 ```
 
-On Linux, install the previously built `EmojiMart.AppImage` as desktop app:
+On Linux, you can install the previously built `EmojiMart.AppImage` as desktop app:
 
 ```bash
 make desktop-local
@@ -217,7 +217,7 @@ To publish a new release, follow this process:
 
 2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub.
 
-3. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, create a [new release on GitHub](https://github.com/vemonet/EmojiMart/releases), and update the version in the [flathub repo](https://github.com/flathub/io.github.vemonet.EmojiMart), which will trigger a new build and release on flathub.
+3. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, create a [new release on GitHub](https://github.com/vemonet/EmojiMart/releases), and update the version in the [flathub repo](https://github.com/flathub/io.github.vemonet.EmojiMart), which will trigger a new build/release on flathub.
 
 <!--
 
