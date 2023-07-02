@@ -8,7 +8,7 @@ Modern emoji picker popup app for desktop, based on the amazing [Emoji Mart](htt
 - 🧠 Remember your favorite emojis
 - ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
 - 🧑‍🚀 Uses modern and flexible technologies (TSX for the UI, Rust for the cross-platform compilation, what else?), making it easier to maintain and build upon in the future
-- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app, instead of being added to the clipboard! (it allows to uses emojis without losing what was copied before). 
+- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app, instead of being added to the clipboard! (it allows to uses emojis without losing what was copied before).
 - ⚠️ Auto-paste can be enabled also on Wayland, but require to open permissions of `/dev/uinput`, which is not recommended for security.
 
 🆕 This project just had its **first release**, it should be already usable, but you might face bugs as it is not yet battle tested (especially regarding auto-paste). Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
@@ -121,6 +121,7 @@ Inspired by:
 
 ### ☑️ Todo
 
+- [ ] Select multiple emoji when pressing a specific key, e.g. when pressing shift
 - [ ] On x11: improve the process to add the emoji to the clipboard/paste/close the app. Currently there is an issue with `xdotool` clearing the clipboard when called from tauri
 - [ ] On wayland: add auto-paste on Wayland with `ydotool`, this will require some permission wizardry from the user to enable access to `/dev/uinput` in the flatpak container(cf. https://github.com/flatpak/flatpak/issues/4137), and might also require to run in the background (for the `ydotoold` daemon)
 - [ ] Check if working properly on MacOS
@@ -183,6 +184,14 @@ On Linux, install the previously built `EmojiMart.AppImage` as desktop app:
 make desktop-local
 ```
 
+### ✅ Format
+
+Run automatic formatting and linting of the codebase:
+
+```bash
+make fmt
+```
+
 ### ⏫ Upgrade dependencies
 
 You might want to upgrade the latest versions of:
@@ -206,9 +215,9 @@ To publish a new release, follow this process:
    make version=0.1.2 bump
    ```
 
-2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub. 
+2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub.
 
-3. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, create a [new release on GitHub](https://github.com/vemonet/EmojiMart/releases), and update the version in the [flathub repo](https://github.com/flathub/io.github.vemonet.EmojiMart), which will trigger a new build and release on flathub. 
+3. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, create a [new release on GitHub](https://github.com/vemonet/EmojiMart/releases), and update the version in the [flathub repo](https://github.com/flathub/io.github.vemonet.EmojiMart), which will trigger a new build and release on flathub.
 
 <!--
 

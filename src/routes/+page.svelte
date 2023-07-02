@@ -12,26 +12,35 @@
 	let theme = 'auto'
 	let keep = false
 	let picker: any
+	let pickMulti = false
+	let selection: string[] = []
 
 	// Add to clipboard and close when clicking an emoji
 	const onEmojiSelect = async (emoji: EmojiData) => {
-		const previous = await clipboard.readText()
-		clipboard.writeText(emoji.native)
-		appWindow.hide()
-		if (previous) await invoke('trigger_paste', { emoji: emoji.native, keep, previous: previous })
-		else await invoke('trigger_paste', { emoji: emoji.native, keep: false })
-		if (keep && previous) clipboard.writeText(previous)
+		if (pickMulti) {
+			selection.push(emoji.native)
+		} else {
+			const previous = await clipboard.readText()
+			clipboard.writeText(emoji.native)
+			appWindow.hide()
+			if (previous) await invoke('trigger_paste', { emoji: emoji.native, keep, previous: previous })
+			else await invoke('trigger_paste', { emoji: emoji.native, keep: false })
+			if (keep && previous) clipboard.writeText(previous)
+		}
 	}
 
-	// Close when hit <Esc>
 	const handleKeypress = (event: any) => {
+		// Close when hit <Esc>
 		if (event.code === 'Escape') {
 			appWindow.close()
 		}
-		// TODO: else if key somewhere from A to Z, bring back focus on the picker search input?
+		if (event.code === 'Shift' || event.shiftKey) {
+			pickMulti = true
+		}
 	}
 
 	onMount(async () => {
+		// Get arguments
 		let matches = await getMatches()
 		if (matches.args['keep'].value?.toString().toLowerCase() === 'true') keep = true
 		if (matches.args['theme'].value) theme = matches.args['theme'].value?.toString().toLowerCase()
@@ -46,6 +55,7 @@
 			theme = 'auto'
 		}
 
+		// Create the picker
 		picker.append(new Picker({ data, onEmojiSelect, theme, autoFocus: true, dynamicWidth: true }))
 		document.addEventListener('keypress', handleKeypress)
 	})
@@ -58,4 +68,7 @@
 <!-- https://svelte.dev/tutorial/bind-this -->
 <section>
 	<div bind:this={picker} />
+	{#if selection.length > 0}
+		<p>{selection.join(' ')}</p>
+	{/if}
 </section>

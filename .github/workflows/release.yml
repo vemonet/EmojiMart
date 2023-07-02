@@ -51,7 +51,6 @@ jobs:
           releaseDraft: false
           prerelease: false
 
-
   publish-flatpak:
     needs: publish-tauri
     permissions:
