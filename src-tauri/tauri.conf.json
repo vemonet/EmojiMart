@@ -50,8 +50,7 @@
 					"name": "theme",
 					"short": "t",
 					"takesValue": true,
-					"multiple": false,
-					"possibleValues": ["light", "dark", "auto"]
+					"multiple": false
 				}
 			]
 		},
