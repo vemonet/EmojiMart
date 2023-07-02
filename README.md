@@ -34,13 +34,13 @@ You can then create a custom system keyboard shortcut, start the emoji picker wi
 flatpak run io.github.vemonet.EmojiMart
 ```
 
-If you are using **Wayland on GNOME** we recommend to enable new windows to be **centered**, otherwise the popup will appear on the top left corner.  If you are using Mutter, the default window composer for GNOME, you can do so by running the following command:
+If you are using **Wayland on GNOME** we recommend to enable new windows to be **centered**, otherwise the popup will appear on the top left corner. If you are using Mutter, the default window composer for GNOME, you can do so by running the following command:
 
 ```bash
 gsettings set org.gnome.mutter center-new-windows true
 ```
 
-To enable **auto-paste to work on Wayland** you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to  automatically paste on Wayland, let us know if you know of a better way in the issues. Add this udev rule to enable your user to access `/dev/uinput`:
+To enable **auto-paste to work on Wayland** you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to automatically paste on Wayland, let us know if you know of a better way in the issues. Add this udev rule to enable your user to access `/dev/uinput`:
 
 ```bash
 echo "KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"$(id -gn)\", TAG+=\"uaccess\"" | sudo tee -a /etc/udev/rules.d/99-uinput.rules
@@ -87,8 +87,8 @@ Letting the user register custom system shortcuts, instead of having the app reg
 
 Inspired by:
 
-* [github.com/tom-james-watson/Emote](https://github.com/tom-james-watson/Emote) my favorite GTK emoji picker 
-* [github.com/Simon-Laux/tauri-emoji-mart-app](https://github.com/Simon-Laux/tauri-emoji-mart-app) who combined tauri with emoji-mart, difference are that we use Svelte instead of React, and the popup design has been improved.
+- [github.com/tom-james-watson/Emote](https://github.com/tom-james-watson/Emote) my favorite GTK emoji picker
+- [github.com/Simon-Laux/tauri-emoji-mart-app](https://github.com/Simon-Laux/tauri-emoji-mart-app) who combined tauri with emoji-mart, difference are that we use Svelte instead of React, and the popup design has been improved.
 
 [Icon](https://www.vecteezy.com/vector-art/5726169-cardboard-box-funny-box-box-character-delivery-box-box-emoji) credits: <a href="https://www.vecteezy.com/members/duniaonme653898">duniaonme653898 on Vecteezy</a>
 

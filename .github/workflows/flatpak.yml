@@ -12,7 +12,6 @@ on:
 #     branches: [master]
 
 jobs:
-
   flatpak:
     name: Build Flatpak
     runs-on: ubuntu-latest
@@ -20,13 +19,13 @@ jobs:
       image: bilelmoussaoui/flatpak-github-actions:gnome-44
       options: --privileged
     steps:
-    - uses: actions/checkout@v3
-      with:
-        repository: flathub/io.github.vemonet.EmojiMart
-        path: './'
+      - uses: actions/checkout@v3
+        with:
+          repository: flathub/io.github.vemonet.EmojiMart
+          path: './'
 
-    - uses: flatpak/flatpak-github-actions/flatpak-builder@v6.1
-      with:
-        bundle: EmojiMart.flatpak
-        manifest-path: io.github.vemonet.EmojiMart
-        cache-key: flatpak-builder-${{ github.sha }}
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6.1
+        with:
+          bundle: EmojiMart.flatpak
+          manifest-path: io.github.vemonet.EmojiMart
+          cache-key: flatpak-builder-${{ github.sha }}

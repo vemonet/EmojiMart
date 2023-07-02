@@ -26,8 +26,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
 
-      - name: install app dependencies and build it
-        run: yarn && yarn build
+      - name: Install app dependencies
+        run: yarn
+
+      - name: Lint check
+        run: yarn lint
+
+      - name: Build the app
+        run: yarn build
 
       - uses: tauri-apps/tauri-action@v0
         env:
