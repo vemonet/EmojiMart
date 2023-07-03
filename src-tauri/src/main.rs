@@ -86,6 +86,7 @@ async fn trigger_paste(
             // Paste on wayland with ydotool
             // Type don't work with emojis https://github.com/ReimuNotMoe/ydotool/issues/22
             // ydotool key 29:1 42:1 47:1 47:0 42:0 29:0
+            // See also: https://github.com/obv-mikhail/InputBot/issues/4
 
             match Command::new("ydotool")
                 .arg("key")
