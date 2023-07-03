@@ -13,7 +13,7 @@ Modern emoji picker popup app for desktop, based on the amazing [Emoji Mart](htt
 
 🆕 This project just had its **first release**, it should be already usable, but you might face bugs as it is not yet battle tested (especially regarding auto-paste). Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
 
-![Emoji Mart screenshot](https://raw.githubusercontent.com/vemonet/EmojiMart/main/public/screenshot.png)
+![Emoji Mart screenshot](https://raw.github.com/vemonet/EmojiMart/main/resources/screenshot.png)
 
 Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 
@@ -127,8 +127,9 @@ Inspired by:
 
 ### ☑️ Todo
 
-- [x] Auto-paste on Wayland: currently using `ydotool` requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`). 
-  - [ ] Use [libei](https://gitlab.freedesktop.org/libinput/libei): once it has  been implemented by mutter: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2628
+- [x] Auto-paste on Wayland: currently using `ydotool` requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`).
+
+  - [ ] Use [libei](https://gitlab.freedesktop.org/libinput/libei): once it has been implemented by mutter: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2628
   - [ ] And merged to flatpak https://github.com/flatpak/xdg-desktop-portal/pull/762
 
 - [ ] On x11: improve the process to add the emoji to the clipboard > paste > close the app. Currently there is an issue with `xdotool` clearing the clipboard when called from tauri

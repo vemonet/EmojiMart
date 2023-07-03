@@ -10,11 +10,12 @@ use tauri::ClipboardManager;
 const SPAWN_WAIT: u64 = 50;
 
 fn xdg_session_type() -> String {
-    return env::var("XDG_SESSION_TYPE").unwrap_or_else(|_| "wayland".to_string()).to_lowercase()
+    return env::var("XDG_SESSION_TYPE")
+        .unwrap_or_else(|_| "wayland".to_string())
+        .to_lowercase();
 }
 
 fn main() {
-
     // If wayland start ydotool for auto-paste
     #[cfg(target_os = "linux")]
     if xdg_session_type() == "wayland" {
