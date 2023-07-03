@@ -70,9 +70,14 @@ gsettings set org.gnome.mutter center-new-windows true
 
 To enable auto-paste to work on Wayland you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to automatically paste on Wayland, please let us know if you know of a better way in the issues!
 
-<!-- First you will need to install the flatpak from the GitHub releases, instead of Flathub:  -->
+First you will need to download and install the `.flatpak` file from the GitHub releases, instead of Flathub:
 
-Add this udev rule which will enable your user to access `/dev/uinput`:
+```bash
+curl -Lo io.github.vemonet.EmojiMart.flatpak https://github.com/vemonet/EmojiMart/releases/latest/download/io.github.vemonet.EmojiMart.flatpak
+flatpak install io.github.vemonet.EmojiMart.flatpak
+```
+
+And add this udev rule which will enable your user to access `/dev/uinput`:
 
 ```bash
 echo "KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"$(id -gn)\", TAG+=\"uaccess\"" | sudo tee -a /etc/udev/rules.d/99-uinput.rules
