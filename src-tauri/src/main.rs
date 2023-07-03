@@ -4,7 +4,7 @@
 use std::env;
 use std::process::Command;
 use std::{thread, time::Duration};
-use tauri::ClipboardManager;
+use tauri::{ClipboardManager, Manager};
 
 // Time waited for the paste to be done, before closing the window, in ms
 const SPAWN_WAIT: u64 = 50;
@@ -68,6 +68,10 @@ async fn trigger_paste(
     previous: Option<&str>,
     app_handle: tauri::AppHandle,
 ) -> Result<String, ()> {
+    // let previous = app_handle.clipboard_manager().read_text().unwrap();
+    // app_handle.clipboard_manager().write_text(emoji).unwrap();
+    // app_handle.get_window("main").unwrap().hide().unwrap();
+
     #[cfg(target_os = "linux")]
     {
         if xdg_session_type() == "x11" {
@@ -79,9 +83,10 @@ async fn trigger_paste(
                 .arg("ctrl+shift+v")
                 .spawn()
                 .expect("xdotool paste command failed to start");
-            // For some reason adding this additional paste of the emoji allows to keep the previous clipboard,
-            // and paste the right emoji with xdotool
-            app_handle.clipboard_manager().write_text(emoji).unwrap();
+
+            // For some other reason adding this additional paste of the emoji allows to keep the previous clipboard,
+            // and paste the right emoji with xdotool:
+            // app_handle.clipboard_manager().write_text(emoji).unwrap();
         } else {
             // Paste on wayland with ydotool
             // Type don't work with emojis https://github.com/ReimuNotMoe/ydotool/issues/22
@@ -100,6 +105,7 @@ async fn trigger_paste(
             {
                 Ok(_child) => {
                     // println!("Put back the previous item in the clipboard: {} {}", keep.unwrap(), previous.unwrap());
+                    // Writing the previous item back to the clipboard does not work
                     if keep.unwrap_or(false) == true && previous.is_some() {
                         app_handle
                             .clipboard_manager()

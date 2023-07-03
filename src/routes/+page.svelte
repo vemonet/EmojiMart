@@ -10,7 +10,7 @@
 
 	const acceptedThemes = ['auto', 'light', 'dark']
 	let theme = 'auto'
-	let keep = false
+	let keep = true
 	let picker: any
 	let pickMulti = false
 	let selection: string[] = []
@@ -21,11 +21,15 @@
 			selection.push(emoji.native)
 		} else {
 			const previous = await clipboard.readText()
+			// This first write to clipboard works
 			clipboard.writeText(emoji.native)
 			appWindow.hide()
 			if (previous) await invoke('trigger_paste', { emoji: emoji.native, keep, previous: previous })
 			else await invoke('trigger_paste', { emoji: emoji.native, keep: false })
-			if (keep && previous) clipboard.writeText(previous)
+			await invoke('trigger_paste', { emoji: emoji.native, keep})
+
+			// This last write to clipboard does not work neither!
+			// if (keep && previous) clipboard.writeText(previous)
 		}
 	}
 
