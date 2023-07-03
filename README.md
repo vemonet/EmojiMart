@@ -70,6 +70,8 @@ gsettings set org.gnome.mutter center-new-windows true
 
 To enable auto-paste to work on Wayland you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to automatically paste on Wayland, please let us know if you know of a better way in the issues!
 
+<!-- First you will need to install the flatpak from the GitHub releases, instead of Flathub:  -->
+
 Add this udev rule which will enable your user to access `/dev/uinput`:
 
 ```bash
@@ -125,9 +127,12 @@ Inspired by:
 
 ### ☑️ Todo
 
-- [ ] Select multiple emoji when pressing a specific key, e.g. when pressing shift
-- [ ] On x11: improve the process to add the emoji to the clipboard/paste/close the app. Currently there is an issue with `xdotool` clearing the clipboard when called from tauri
-- [ ] On wayland: add auto-paste on Wayland with `ydotool`, this will require some permission wizardry from the user to enable access to `/dev/uinput` in the flatpak container(cf. https://github.com/flatpak/flatpak/issues/4137), and might also require to run in the background (for the `ydotoold` daemon)
+- [x] Auto-paste on Wayland: currently using `ydotool` requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`). 
+  - [ ] Use [libei](https://gitlab.freedesktop.org/libinput/libei): once it has  been implemented by mutter: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2628
+  - [ ] And merged to flatpak https://github.com/flatpak/xdg-desktop-portal/pull/762
+
+- [ ] On x11: improve the process to add the emoji to the clipboard > paste > close the app. Currently there is an issue with `xdotool` clearing the clipboard when called from tauri
+- [ ] Select multiple emoji when pressing a specific key, e.g. when pressing shift?
 - [ ] Check if working properly on MacOS
 - [ ] Check if working properly on Windows
 - [ ] Add auto-paste on Windows and MacOS when the compatibility between Enigo and Tauri is resolved (cf. https://github.com/enigo-rs/enigo/issues/15 and https://github.com/tauri-apps/tauri/issues/6421)
@@ -174,7 +179,7 @@ make dev
 
 ### 📦️ Build
 
-To build the **Flatpak** package checkout this repository: [github.com/vemonet/flathub/tree/io.github.vemonet.EmojiMart](https://github.com/vemonet/flathub/tree/io.github.vemonet.EmojiMart)
+To build the **Flatpak** package checkout this repository: [github.com/flathub/io.github.vemonet.EmojiMart](https://github.com/flathub/io.github.vemonet.EmojiMart)
 
 Build `.AppImage` and `.deb` packages, or `.dmg`/`.exe` depending on your OS:
 
@@ -221,13 +226,9 @@ To publish a new release, follow this process:
 
 2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub.
 
-3. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, create a [new release on GitHub](https://github.com/vemonet/EmojiMart/releases), and update the version in the [flathub repo](https://github.com/flathub/io.github.vemonet.EmojiMart), which will trigger a new build/release on flathub.
+3. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, and create a [new release on GitHub](https://github.com/vemonet/EmojiMart/releases).
 
-<!--
-
-3. Then you can review the draft on the [**Releases** page](https://github.com/vemonet/EmojiMart/releases): click **Generate release notes**, and click **Publish release**
-
-4. Finally update the tag on the flathub repository to trigger a new release on flathub. -->
+4. Finally send a pull request to update the tag in the [flathub repository](https://github.com/flathub/io.github.vemonet.EmojiMart) to trigger a new release on flathub.
 
 ### 🖼️ Change icon
 

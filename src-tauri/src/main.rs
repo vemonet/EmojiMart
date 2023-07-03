@@ -9,14 +9,21 @@ use tauri::ClipboardManager;
 // Time waited for the paste to be done, before closing the window, in ms
 const SPAWN_WAIT: u64 = 50;
 
+fn xdg_session_type() -> String {
+    return env::var("XDG_SESSION_TYPE").unwrap_or_else(|_| "wayland".to_string()).to_lowercase()
+}
+
 fn main() {
-    // ydotoold --socket-path="$HOME/.ydotool_socket" --socket-own="$(id -u):$(id -g)"
-    match Command::new("ydotoold").spawn() {
-        Ok(_child) => {
-            println!("[EmojiMart] ydotoold daemon started successfully");
-        }
-        Err(error) => {
-            eprintln!("[EmojiMart] ydotoold daemon failed to start: {}", error);
+
+    // If wayland start ydotool for auto-paste
+    #[cfg(target_os = "linux")]
+    if xdg_session_type() == "wayland" {
+        // ydotoold --socket-path="$HOME/.ydotool_socket" --socket-own="$(id -u):$(id -g)"
+        match Command::new("ydotoold").spawn() {
+            Ok(_child) => {}
+            Err(error) => {
+                eprintln!("[EmojiMart] ydotoold daemon failed to start: {}", error);
+            }
         }
     }
 
@@ -62,8 +69,7 @@ async fn trigger_paste(
 ) -> Result<String, ()> {
     #[cfg(target_os = "linux")]
     {
-        let window_session = env::var("XDG_SESSION_TYPE").unwrap_or_else(|_| "wayland".to_string());
-        if window_session.to_lowercase() == "x11" {
+        if xdg_session_type() == "x11" {
             // Paste on x11 with xdotool
             // TODO: for some reason when "xdotool key something" or "xdotool type something" is triggered from rust
             // it erases the clipboard. It does not happen when xdotool is run directly from the terminal though

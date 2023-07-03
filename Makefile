@@ -34,10 +34,6 @@ release:
 	git push
 	git checkout main
 
-icon:
-	echo "Put the icon in this repository root folder, and name it app-icon.png"
-	yarn tauri icon
-
 fmt:
 	cd src-tauri && cargo fmt
 	yarn fmt
@@ -52,3 +48,7 @@ clean:
 	pkill ydotoold
 	rm -rf .flatpak-builder build/ src-tauri/target
 	rm -rf ~/.local/share/applications/EmojiMart.* ~/.local/bin/EmojiMart.AppImage
+
+icon:
+	echo "Put the icon in this repository root folder, and name it app-icon.png"
+	yarn tauri icon
