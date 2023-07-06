@@ -81,8 +81,10 @@ And add this udev rule which will enable your user to access `/dev/uinput`:
 
 ```bash
 echo "KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"$(id -gn)\", TAG+=\"uaccess\"" | sudo tee -a /etc/udev/rules.d/99-uinput.rules
-# Then reload the rules (or reboot):
-sudo udevadm control --reload-rules
+# Or this command should work too but I did not tested it yet:
+sudo usermod -a -G input $(id -u)
+# Then reboot to make sure changes are loaded
+sudo reboot
 ```
 
 <details><summary>Alternatively, but not recommended, you can also use the <code>.AppImage</code> file</summary>
