@@ -50,7 +50,7 @@ fn main() {
                 // Close the window automatically when the user clicks out
                 // Use thread sleep to avoid killing before pasting is done
                 thread::spawn(move || {
-                    thread::sleep(Duration::from_millis(SPAWN_WAIT));
+                    thread::sleep(Duration::from_millis(SPAWN_WAIT*2));
                     event.window().close().unwrap();
                     // event.window().hide().unwrap();
                 });
@@ -74,9 +74,13 @@ async fn trigger_paste(
             // Paste on x11 with xdotool
             // TODO: for some reason when "xdotool key something" or "xdotool type something" is triggered from rust
             // it erases the clipboard. It does not happen when xdotool is run directly from the terminal though
+            // Make sure the windows is hidden before pasting:
+            thread::sleep(Duration::from_millis(SPAWN_WAIT));
             Command::new("xdotool")
-                .arg("key")
-                .arg("ctrl+shift+v")
+                .arg("type")
+                .arg(emoji)
+                // .arg("key")
+                // .arg("ctrl+shift+v")
                 .spawn()
                 .expect("xdotool paste command failed to start");
             // For some reason adding this additional paste of the emoji allows to keep the previous clipboard,
