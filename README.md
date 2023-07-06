@@ -1,6 +1,6 @@
 # <span><img width="35" height="35" src="https://github.com/vemonet/EmojiMart/blob/main/src-tauri/icons/128x128.png"></span> Emoji Mart desktop popup
 
-Modern emoji picker popup app for desktop, based on the amazing [Emoji Mart](https://github.com/missive/emoji-mart) web component.
+Modern emoji picker popup for desktop, based on the amazing [Emoji Mart](https://github.com/missive/emoji-mart) web component, built with [Tauri](https://tauri.app/) and [Svelte](https://svelte.dev).
 
 - 🍾 Built as a popup: quick invocation through your system custom shortcuts, and disappears when not needed, does not stay as a standalone window, does not run in the background
 - 🔎 Search text box automatically focused and ready to type when invoked
@@ -14,8 +14,6 @@ Modern emoji picker popup app for desktop, based on the amazing [Emoji Mart](htt
 🆕 This project just had its **first release**, it should be already usable, but you might face bugs as it is not yet battle tested (especially regarding auto-paste). Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
 
 ![Emoji Mart screenshot](https://raw.github.com/vemonet/EmojiMart/main/resources/screenshot.png)
-
-Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 
 ## 📥️ Installation
 
@@ -148,6 +146,8 @@ Inspired by:
 ## 🛠️ Development
 
 [![Latest release](https://shields.io/github/v/release/vemonet/EmojiMart)](https://github.com/vemonet/EmojiMart/releases/latest) [![Build app](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml/badge.svg)](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml) [![Publish new release](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml/badge.svg)](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml)
+
+Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 
 Recommended IDE Setup: [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
