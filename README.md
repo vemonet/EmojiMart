@@ -229,10 +229,14 @@ To publish a new release, follow this process:
 1. Changed the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`, you can use this script to do it automatically for a specific new version:
 
    ```bash
-   make version=0.1.2 bump
+   make bump version=0.1.2
    ```
 
-2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub.
+2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub:
+
+   ```bash
+   make release
+   ```
 
 3. A [GitHub Action workflow](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml) will automatically build the artefacts for the different platforms, and create a [new release on GitHub](https://github.com/vemonet/EmojiMart/releases).
 

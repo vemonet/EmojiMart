@@ -27,6 +27,8 @@ bump:
 	sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"$(version)\"/g" ./src-tauri/tauri.conf.json
 	sed -i "s/version = \"[0-9]*\.[0-9]*\.[0-9]*\"/version = \"$(version)\"/g" ./src-tauri/Cargo.toml
 	rm -rf src-tauri/target/release/bundle
+# git add package.json src-tauri/tauri.conf.json src-tauri/Cargo.toml
+# git commit -m "⏫ Bump to version $(version)"
 
 release:
 	git checkout release
