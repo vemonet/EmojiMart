@@ -21,15 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: setup node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - name: install Rust stable
+      - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
 
-      - name: install dependencies (ubuntu only)
+      - name: Install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-20.04'
         run: |
           sudo apt-get update
@@ -42,7 +42,8 @@ jobs:
         if: matrix.platform == 'ubuntu-20.04'
         run: yarn lint
 
-      - uses: tauri-apps/tauri-action@v0
+      - name: Build and publish with tauri
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -52,9 +53,6 @@ jobs:
           releaseDraft: false
           prerelease: false
 
-  # publish-flatpak:
-  #   uses: flathub/io.github.vemonet.EmojiMart/.github/workflows/publish.yml@main
-  #   secrets: inherit
 
   publish-flatpak:
     needs: publish-tauri
