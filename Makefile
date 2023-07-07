@@ -10,13 +10,13 @@ install-wayland:
 	mkdir ydotool/build
 	cd ydotool/build && cmake .. && make -j `nproc`
 	cp ydotool/build/ydotool* ~/.local/bin
+	ydotoold &
 
 upgrade:
 	yarn upgrade @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
 	cd src-tauri && cargo update
 
 dev:
-	ydotoold &
 	yarn tauri dev
 
 build:
