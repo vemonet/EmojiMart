@@ -1,22 +1,18 @@
 name: 'Publish new release'
-
 # Triggered when pushing to the `release` branch
 on:
-  workflow_dispatch:
   push:
     branches: [release]
-    # tags:
-    #   - 'v*'
+  workflow_dispatch:
 
 jobs:
-  publish-tauri:
+  create-release:
     permissions:
       contents: write
     strategy:
       fail-fast: false
       matrix:
         platform: [macos-latest, ubuntu-latest, windows-latest]
-
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +20,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -43,6 +39,7 @@ jobs:
         run: yarn lint
 
       - name: Build and publish with tauri
+        id: create-release
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,8 +50,12 @@ jobs:
           releaseDraft: false
           prerelease: false
 
+    outputs:
+      releaseId: ${{ steps.create-release.outputs.releaseId }}
+
+
   publish-flatpak:
-    needs: publish-tauri
+    needs: create-release
     runs-on: ubuntu-latest
     container:
       image: bilelmoussaoui/flatpak-github-actions:gnome-44
@@ -63,37 +64,26 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          path: './EmojiMart'
-
-      - uses: actions/checkout@v3
-        with:
           repository: flathub/io.github.vemonet.EmojiMart
-          path: './io.github.vemonet.EmojiMart'
           ref: dev
 
       - name: Update package version in flatpak manifest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGE_VERSION: ${{ needs.create-release.outputs.releaseId }}
         run: |
-          PACKAGE_VERSION=$(node -p "require('./EmojiMart/package.json').version")
-          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
-          cd io.github.vemonet.EmojiMart
           sed -i "s/- --device=dri/- --device=all/g" ./io.github.vemonet.EmojiMart.yml
-          sed -i "s/tag: v[0-9]*\.[0-9]*\.[0-9]*$/tag: v$PACKAGE_VERSION/g" ./io.github.vemonet.EmojiMart.yml
+          sed -i "s/tag: v[0-9]*\.[0-9]*\.[0-9]*$/tag: $PACKAGE_VERSION/g" ./io.github.vemonet.EmojiMart.yml
           sed -i "s/<\/releases>$/  <release version=\"$PACKAGE_VERSION\" date=\"$(date +%Y-%m-%d)\">\\n  <\/release>\\n  <\/releases>/g" ./io.github.vemonet.EmojiMart.appdata.xml
-        # git add .
-        # git commit -m "🏷️ Updating release version to $PACKAGE_VERSION"
-        # git push -u origin master
 
       - name: Build flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6.1
         with:
           bundle: EmojiMart.flatpak
-          manifest-path: io.github.vemonet.EmojiMart/io.github.vemonet.EmojiMart.yml
+          manifest-path: io.github.vemonet.EmojiMart.yml
           cache-key: flatpak-builder-${{ github.sha }}
 
       - name: Update Release
         uses: softprops/action-gh-release@v1
         with:
           files: EmojiMart.flatpak
-          tag_name: v${{ github.env.PACKAGE_VERSION }}
+          tag_name: ${{ needs.create-release.outputs.releaseId }}
