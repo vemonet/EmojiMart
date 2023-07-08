@@ -14,3 +14,6 @@ dist
 .yarn
 src-tauri/target/
 ydotool
+
+/cldr-json/
+/emoji-mart/

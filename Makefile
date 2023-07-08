@@ -1,5 +1,5 @@
 OS := $(shell uname)
-.PHONY: install install-wayland upgrade dev build bump release icon fmt desktop-local clean
+.PHONY: install install-wayland upgrade dev build i18n bump release icon fmt desktop-local clean
 
 install:
 	yarn
@@ -21,6 +21,11 @@ dev:
 
 build:
 	yarn tauri build
+
+i18n:
+	git -C "cldr-json" pull || git clone https://github.com/unicode-org/cldr-json.git "cldr-json"
+	git -C "emoji-mart" pull || git clone https://github.com/missive/emoji-mart.git "emoji-mart"
+	node resources/internationalize.js
 
 bump:
 	sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\",/\"version\": \"$(version)\",/g" ./package.json
@@ -47,9 +52,10 @@ desktop-local:
 	cp src-tauri/icons/icon.png ~/.local/share/applications/EmojiMart.png
 
 clean:
-	pkill ydotoold
-	rm -rf .flatpak-builder build/ src-tauri/target
 	rm -rf ~/.local/share/applications/EmojiMart.* ~/.local/bin/EmojiMart.AppImage
+	rm -rf .svelte-kit
+	rm -rf src-tauri/target
+	pkill ydotoold
 
 icon:
 	echo "Put the icon in this repository root folder, and name it app-icon.png"

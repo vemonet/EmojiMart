@@ -10,6 +10,7 @@
 
 	const acceptedThemes = ['auto', 'light', 'dark']
 	let theme = 'auto'
+	let lang = 'fr'
 	let keep = false
 	let picker: any
 	let pickMulti = false
@@ -43,6 +44,7 @@
 		// Get arguments
 		let matches = await getMatches()
 		if (matches.args['keep'].value?.toString().toLowerCase() === 'true') keep = true
+		if (matches.args['lang'].value) lang = matches.args['lang'].value?.toString().toLowerCase()
 		if (matches.args['theme'].value) theme = matches.args['theme'].value?.toString().toLowerCase()
 		else {
 			const sysTheme = await appWindow.theme()
@@ -55,8 +57,20 @@
 			theme = 'auto'
 		}
 
+		const i18n = (await import('@emoji-mart/data/i18n/fr.json')).default;
+
+		// const i18n = (await import(`@emoji-mart/data/i18n/${lang}.json`)).default;
+
+		// const langData = (await import(`@emoji-mart/data/i18n/data-${lang}.json`)).default;
+		const langData = (await import(`../data/${lang}.json`)).default;
+		// <Picker data={langData} locale=lang />
+
+		// if (lang !== 'en') {
+		// 	const i18n = (await import(`@emoji-mart/data/i18n/${lang}.json`)).default;
+		// }
+
 		// Create the picker
-		picker.append(new Picker({ data, onEmojiSelect, theme, autoFocus: true, dynamicWidth: true }))
+		picker.append(new Picker({ data: langData, onEmojiSelect, theme, i18n, autoFocus: true, dynamicWidth: true, locale: lang }))
 		document.addEventListener('keypress', handleKeypress)
 	})
 

@@ -51,6 +51,12 @@
 					"short": "t",
 					"takesValue": true,
 					"multiple": false
+				},
+				{
+					"name": "lang",
+					"short": "l",
+					"takesValue": true,
+					"multiple": false
 				}
 			]
 		},
