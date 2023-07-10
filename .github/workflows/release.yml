@@ -65,6 +65,7 @@ jobs:
         with:
           repository: flathub/io.github.vemonet.EmojiMart
           ref: dev
+          submodules: 'recursive'
 
       - name: Update package version in flatpak manifest
         env:
