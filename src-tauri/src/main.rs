@@ -45,18 +45,18 @@ fn main() {
         //     }
         //     Ok(())
         // })
-        // .on_window_event(|event| match event.event() {
-        //     tauri::WindowEvent::Focused(false) => {
-        //         // Close the window automatically when the user clicks out
-        //         // Use thread sleep to avoid killing before pasting is done
-        //         thread::spawn(move || {
-        //             thread::sleep(Duration::from_millis(SPAWN_WAIT * 2));
-        //             event.window().close().unwrap();
-        //             // event.window().hide().unwrap();
-        //         });
-        //     }
-        //     _ => {}
-        // })
+        .on_window_event(|event| match event.event() {
+            tauri::WindowEvent::Focused(false) => {
+                // Close the window automatically when the user clicks out
+                // Use thread sleep to avoid killing before pasting is done
+                thread::spawn(move || {
+                    thread::sleep(Duration::from_millis(SPAWN_WAIT * 2));
+                    event.window().close().unwrap();
+                    // event.window().hide().unwrap();
+                });
+            }
+            _ => {}
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

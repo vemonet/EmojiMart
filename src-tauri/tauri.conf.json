@@ -23,6 +23,9 @@
 				"show": true,
 				"center": true,
 				"setAlwaysOnTop": true
+			},
+			"os": {
+				"all": true
 			}
 		},
 		"bundle": {

@@ -1,18 +1,22 @@
 <script lang="ts">
-	import data from '@emoji-mart/data'
+	// import data from '@emoji-mart/data'
 	import { Picker } from 'emoji-mart'
 	import { clipboard } from '@tauri-apps/api'
 	import { appWindow } from '@tauri-apps/api/window'
 	import { invoke } from '@tauri-apps/api/tauri'
 	import { getMatches } from '@tauri-apps/api/cli'
+	import { locale } from '@tauri-apps/api/os'
 	import { onMount, onDestroy } from 'svelte'
 	import type { EmojiData } from './+page'
 
 	const acceptedThemes = ['auto', 'light', 'dark']
 	let theme = 'auto'
-	let lang = 'fr'
-	let keep = false
+	let lang = 'en'
+	// Supported: ar, be, cs, de, en, es, fa, fi, fr, hi, it, ja, ko, nl, pl, pt, ru, sa, tr, uk, vi, zh
+	let i18n: any = null
+	let data: any = null
 	let picker: any
+	let keep = false
 	let pickMulti = false
 	let selection: string[] = []
 
@@ -41,6 +45,8 @@
 	}
 
 	onMount(async () => {
+		// Get language from system
+		lang = (await locale())?.slice(0, 2) || lang
 		// Get arguments
 		let matches = await getMatches()
 		if (matches.args['keep'].value?.toString().toLowerCase() === 'true') keep = true
@@ -57,20 +63,30 @@
 			theme = 'auto'
 		}
 
-		const i18n = (await import('@emoji-mart/data/i18n/fr.json')).default;
+		try {
+			// ko/kr replace added to hot fix a mispelling in emoji-mart langs.
+			i18n = (
+				await import(`../../node_modules/@emoji-mart/data/i18n/${lang.replace('ko', 'kr')}.json`)
+			).default
+			// const i18n = (await import(`@emoji-mart/data/i18n/${lang}.json`)).default;
 
-		// const i18n = (await import(`@emoji-mart/data/i18n/${lang}.json`)).default;
-
-		// const langData = (await import(`@emoji-mart/data/i18n/data-${lang}.json`)).default;
-		const langData = (await import(`../data/${lang}.json`)).default;
-		// <Picker data={langData} locale=lang />
-
-		// if (lang !== 'en') {
-		// 	const i18n = (await import(`@emoji-mart/data/i18n/${lang}.json`)).default;
-		// }
+			data = (await import(`../data/${lang}.json`)).default
+		} catch (err) {
+			console.error(`Language ${lang} not supported, loading default`)
+		}
 
 		// Create the picker
-		picker.append(new Picker({ data: langData, onEmojiSelect, theme, i18n, autoFocus: true, dynamicWidth: true, locale: lang }))
+		picker.append(
+			new Picker({
+				data,
+				onEmojiSelect,
+				theme,
+				i18n,
+				autoFocus: true,
+				dynamicWidth: true,
+				locale: lang
+			})
+		)
 		document.addEventListener('keypress', handleKeypress)
 	})
 
