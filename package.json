@@ -13,7 +13,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test": "vitest",
 		"lint": "prettier --ignore-path .gitignore --check . && eslint . --ignore-path .gitignore",
-		"fmt": "prettier \"**/*.{svelte,ts,tsx,js,cjs,json,yml,md,html,css}\" --ignore-path .gitignore --write",
+		"fmt": "prettier \"**/*.{svelte,ts,tsx,js,cjs,yml,md,html,css}\" --ignore-path .gitignore --write",
 		"internationalize": "node resources/internationalize.js"
 	},
 	"dependencies": {
