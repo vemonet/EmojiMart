@@ -72,8 +72,9 @@ jobs:
         # env:
         #   PACKAGE_VERSION: ${{ needs.create-release.outputs.releaseId }}
         run: |
-          wget https://raw.github.com/vemonet/EmojiMart/release/package.json
+          curl -L -o package.json https://raw.github.com/vemonet/EmojiMart/release/package.json
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          rm package.json
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
           sed -i "s/- --device=dri/- --device=all/g" ./io.github.vemonet.EmojiMart.yml
           sed -i "s/tag: v[0-9]*\.[0-9]*\.[0-9]*$/tag: v$PACKAGE_VERSION/g" ./io.github.vemonet.EmojiMart.yml
