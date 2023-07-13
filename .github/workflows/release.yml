@@ -83,7 +83,7 @@ jobs:
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
           sed -i "s/- --device=dri/- --device=all/g" ./io.github.vemonet.EmojiMart.yml
           sed -i "s/tag: v[0-9]*\.[0-9]*\.[0-9]*$/tag: v$PACKAGE_VERSION/g" ./io.github.vemonet.EmojiMart.yml
-          sed -i "s/<\/releases>$/  <release version=\"$PACKAGE_VERSION\" date=\"$(date +%Y-%m-%d)\">\\n  <\/release>\\n  <\/releases>/g" ./io.github.vemonet.EmojiMart.appdata.xml
+          sed -i "s/<releases>$/<releases>\\n  <release version=\"$PACKAGE_VERSION\" date=\"$(date +%Y-%m-%d)\">\\n  <\/release>\\n/g" ./io.github.vemonet.EmojiMart.appdata.xml
           echo "🏷️ Publishing $PACKAGE_VERSION"
 
       - name: Build flatpak
