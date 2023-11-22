@@ -149,6 +149,7 @@ Inspired by:
 - [ ] Check if working properly on MacOS
 - [ ] Check if working properly on Windows
 - [ ] Add auto-paste on Windows and MacOS when the compatibility between Enigo and Tauri is resolved (cf. https://github.com/enigo-rs/enigo/issues/15 and https://github.com/tauri-apps/tauri/issues/6421)
+- [ ] Improve persistence https://aptabase.com/blog/persistent-state-tauri-apps
 
 ## 🛠️ Development
 
@@ -167,7 +168,10 @@ See pre-requesites to run tauri: https://tauri.app/v1/guides/getting-started/pre
 Additional dependencies for Linux to enable auto-paste on x11:
 
 ```bash
-sudo dnf install libX11-devel libxdo-devel
+# On debian/ubuntu
+sudo apt install -y libx11-dev libxdo-dev libsoup2.4-dev libgdk-pixbuf-2.0-dev libpango1.0-dev libgtk-3-dev libatk1.0-dev libjavascriptcoregtk-4.0-dev libwebkit2gtk-4.0-dev
+# On fedora
+sudo dnf install -y libX11-devel libxdo-devel
 ```
 
 Install dependencies:
@@ -227,6 +231,7 @@ To automatically upgrade dependencies with `yarn` and `cargo` you can run:
 
 ```bash
 make upgrade
+yarn upgrade-interactive --latest
 ```
 
 ### 🏷️ New release

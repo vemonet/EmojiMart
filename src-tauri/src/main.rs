@@ -16,7 +16,7 @@ fn xdg_session_type() -> String {
 }
 
 fn main() {
-    // If wayland start ydotool for auto-paste
+    // If wayland: start ydotool for auto-paste
     #[cfg(target_os = "linux")]
     if xdg_session_type() == "wayland" {
         // ydotoold --socket-path="$HOME/.ydotool_socket" --socket-own="$(id -u):$(id -g)"
@@ -104,7 +104,7 @@ async fn trigger_paste(
             {
                 Ok(_child) => {
                     // println!("Put back the previous item in the clipboard: {} {}", keep.unwrap(), previous.unwrap());
-                    if keep.unwrap_or(false) == true && previous.is_some() {
+                    if keep.unwrap_or(false) && previous.is_some() {
                         app_handle
                             .clipboard_manager()
                             .write_text(previous.unwrap().to_string())

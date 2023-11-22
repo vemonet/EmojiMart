@@ -5,6 +5,7 @@ install:
 	yarn
 	rustup component add rustfmt
 
+# Install ydotool to auto-paste on wayland
 install-wayland:
 	git clone https://github.com/vemonet/ydotool -b no-scdoc
 	mkdir ydotool/build
