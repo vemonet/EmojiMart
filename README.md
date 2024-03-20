@@ -71,9 +71,11 @@ flatpak run io.github.vemonet.EmojiMart --lang fr
 gsettings set org.gnome.mutter center-new-windows true
 ```
 
+<!-- 
+
 ##### ⚠️ Enable auto-paste on Wayland
 
-To enable auto-paste to work on Wayland you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to automatically paste on Wayland, please let us know if you know of a better way in the issues!
+ To enable auto-paste to work on Wayland you will need to give your user permission to read/write to the user input. It is not recommended in regard of security, and Emoji Mart will still work by copying the emoji to your clipboard if you don't make this change. But it is currently the only way we found to automatically paste on Wayland, please let us know if you know of a better way in the issues!
 
 First you will need to download and install the `.flatpak` file from the GitHub releases, instead of Flathub:
 
@@ -91,6 +93,8 @@ sudo usermod -a -G input $(id -u)
 # Then reboot to make sure changes are loaded
 sudo reboot
 ```
+
+-->
 
 <details><summary>Alternatively, but not recommended, you can also use the <code>.AppImage</code> file</summary>
 
@@ -153,7 +157,8 @@ Inspired by:
 
 ## 🛠️ Development
 
-[![Latest release](https://shields.io/github/v/release/vemonet/EmojiMart)](https://github.com/vemonet/EmojiMart/releases/latest) [![Build app](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml/badge.svg)](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml) [![Publish new release](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml/badge.svg)](https://github.com/vemonet/EmojiMart/actions/workflows/release.yml)
+[![Latest release](https://shields.io/github/v/release/vemonet/EmojiMart)](https://github.com/vemonet/EmojiMart/releases/latest)
+[![Build](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml/badge.svg)](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml)
 
 Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 

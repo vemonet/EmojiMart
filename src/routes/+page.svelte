@@ -25,6 +25,8 @@
 		if (pickMulti) {
 			selection.push(emoji.native)
 		} else {
+			// Adding to the clipboard and hiding the window is done here
+			// Rust handles auto-paste
 			const previous = await clipboard.readText()
 			clipboard.writeText(emoji.native)
 			appWindow.hide()

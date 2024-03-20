@@ -1,21 +1,27 @@
-name: 'Build app'
-on: [push, pull_request, workflow_call, workflow_dispatch]
+name: 'Build'
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, release]
+  pull_request:
 
 jobs:
-  test-tauri:
+  build-tauri:
+    name: 🐂 Build with Tauri
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
         platform: [macos-latest, ubuntu-latest, windows-latest]
-
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -26,16 +32,82 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
 
-      - name: Install app dependencies
+      - name: Install frontend dependencies
         run: yarn
 
       - name: Lint check
         if: matrix.platform == 'ubuntu-latest'
         run: yarn lint
 
-      - name: Build the app
-        run: yarn build
-
-      - uses: tauri-apps/tauri-action@v0
+      - name: Build with tauri to test
+        if: github.ref != 'refs/heads/release'
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and publish with tauri
+        if: github.ref == 'refs/heads/release'
+        id: create-release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          releaseName: 'Emoji Mart v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: false
+          prerelease: false
+
+
+  build-flatpak:
+    name: 📦️ Build with Flatpak
+    needs: build-tauri
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:gnome-45
+      options: --privileged
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: flathub/io.github.vemonet.EmojiMart
+          ref: dev
+          submodules: 'recursive'
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Update package version in flatpak manifest
+        # env:
+        #   PACKAGE_VERSION: ${{ needs.create-release.outputs.releaseId }}
+        run: |
+          curl -L -o package.json https://raw.github.com/vemonet/EmojiMart/release/package.json
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          rm package.json
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+          sed -i "s/- --device=dri/- --device=all/g" ./io.github.vemonet.EmojiMart.yml
+          sed -i "s/tag: v[0-9]*\.[0-9]*\.[0-9]*$/tag: v$PACKAGE_VERSION/g" ./io.github.vemonet.EmojiMart.yml
+          sed -i "s/<releases>$/<releases>\\n  <release version=\"$PACKAGE_VERSION\" date=\"$(date +%Y-%m-%d)\">\\n  <\/release>\\n/g" ./io.github.vemonet.EmojiMart.appdata.xml
+          echo "🏷️ Publishing $PACKAGE_VERSION"
+
+      - name: Build flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6.1
+        with:
+          bundle: EmojiMart.flatpak
+          manifest-path: io.github.vemonet.EmojiMart.yml
+          cache-key: flatpak-builder-${{ github.sha }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EmojiMart.flatpak
+          path: EmojiMart.flatpak
+
+      - name: Update Release
+        if: github.ref == 'refs/heads/release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            EmojiMart.flatpak
+          tag_name: v${{ github.env.PACKAGE_VERSION }}
