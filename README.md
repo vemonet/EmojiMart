@@ -171,7 +171,7 @@ Additional dependencies for Linux to enable auto-paste on x11:
 
 ```bash
 # On debian/ubuntu
-sudo apt install -y libx11-dev libxdo-dev libsoup2.4-dev libgdk-pixbuf-2.0-dev libpango1.0-dev libgtk-3-dev libatk1.0-dev libjavascriptcoregtk-4.1-dev libwebkit2gtk-4.0-dev
+sudo apt install -y libx11-dev libxdo-dev build-essential libwebkit2gtk-4.1-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
 # On fedora
 sudo dnf install -y libX11-devel libxdo-devel
 ```
