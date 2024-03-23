@@ -130,25 +130,25 @@ Then create a custom shortcut for the command: `flatpak run io.github.vemonet.Em
 
 ## 📋️ Notes
 
-The app currently does not run in the background. It could be invoked slightly faster with a built-in shortcut, and running in the background, but that increases the chances of people starting many phantom processes without knowing. When running in the background and invoked using the built-in shortcut the window is not properly focused. Alternatively when installed with flatpak starting it without letting it run in the background is fast enough for using it like this directly, and does not have any issue with focusing.
+The app currently does not run in the background. It could be invoked slightly faster with a built-in shortcut, and running in the background, but that increases the chances of people starting many phantom processes without knowing. Alternatively when installed with flatpak starting it without letting it run in the background is fast enough for using it like this directly, and does not have any issue with focusing.
 
 Letting the user register custom system shortcuts, instead of having the app registering the shortcut for the user, prevents bugs and conflicts with other shortcuts. Which enable the users to choose from a larger amount of shortcuts.
 
 Inspired by:
 
-- [github.com/tom-james-watson/Emote](https://github.com/tom-james-watson/Emote) my favorite GTK emoji picker
-- [github.com/Simon-Laux/tauri-emoji-mart-app](https://github.com/Simon-Laux/tauri-emoji-mart-app) who combined tauri with emoji-mart, difference are that we use Svelte instead of React, and the popup design has been improved.
+- [tom-james-watson/Emote](https://github.com/tom-james-watson/Emote) my favorite GTK emoji picker
+- [Simon-Laux/tauri-emoji-mart-app](https://github.com/Simon-Laux/tauri-emoji-mart-app) who combined tauri with emoji-mart, difference are that we use Svelte instead of React, and the popup design has been improved.
 
 [Icon](https://www.vecteezy.com/vector-art/5726169-cardboard-box-funny-box-box-character-delivery-box-box-emoji) credits: <a href="https://www.vecteezy.com/members/duniaonme653898">duniaonme653898 on Vecteezy</a>
 
 ### ☑️ Todo
 
-- [x] Auto-paste on Wayland: currently using `ydotool` requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`).
+- [x] Auto-paste on Wayland: currently using `ydotool` but requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`).
 
   - [ ] Use [libei](https://gitlab.freedesktop.org/libinput/libei): once it has been implemented by mutter: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2628 and merged to flatpak https://github.com/flatpak/xdg-desktop-portal/pull/762
   - [ ] Recent rust crate for libei protocol: https://crates.io/crates/reis
 
-- [ ] Select multiple emoji when pressing a specific key, e.g. when pressing shift?
+- [ ] Select multiple emoji when pressing a specific key, e.g. when pressing shift
 - [ ] Add auto-paste on Windows and MacOS when the compatibility between Enigo and Tauri is resolved (cf. https://github.com/enigo-rs/enigo/issues/15 and https://github.com/tauri-apps/tauri/issues/6421)
 - [ ] Improve persistence https://aptabase.com/blog/persistent-state-tauri-apps
 
@@ -200,7 +200,7 @@ make dev
 
 ### 📦️ Build
 
-To build the **Flatpak** package checkout this repository: [github.com/flathub/io.github.vemonet.EmojiMart](https://github.com/flathub/io.github.vemonet.EmojiMart)
+To build the **Flatpak** package checkout this repository: [flathub/io.github.vemonet.EmojiMart](https://github.com/flathub/io.github.vemonet.EmojiMart)
 
 Build `.AppImage` and `.deb` packages, or `.dmg`/`.exe` depending on your OS:
 
