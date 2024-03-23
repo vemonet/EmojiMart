@@ -73,10 +73,10 @@ jobs:
           ref: dev
           submodules: 'recursive'
 
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      # - name: Setup node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 18
 
       - name: Update package version in flatpak manifest
         # env:
@@ -92,7 +92,7 @@ jobs:
           echo "🏷️ Publishing $PACKAGE_VERSION"
 
       - name: Build flatpak
-        uses: flatpak/flatpak-github-actions/flatpak-builder@v6.1
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: EmojiMart.flatpak
           manifest-path: io.github.vemonet.EmojiMart.yml
