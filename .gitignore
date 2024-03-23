@@ -18,3 +18,5 @@ ydotool
 /cldr-json/
 /emoji-mart/
 io.github.vemonet.EmojiMart/
+
+src-tauri/gen/schemas

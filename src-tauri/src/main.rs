@@ -3,16 +3,14 @@
 
 use std::env;
 use std::process::Command;
-use std::{thread, time::Duration};
-use tauri::ClipboardManager;
 
-// Time waited for the paste to be done, before closing the window, in ms
-const SPAWN_WAIT: u64 = 50;
+use tauri::{command, AppHandle, Runtime};
 
+/// Check if x11 or wayland is used
 fn xdg_session_type() -> String {
-    return env::var("XDG_SESSION_TYPE")
+    env::var("XDG_SESSION_TYPE")
         .unwrap_or_else(|_| "wayland".to_string())
-        .to_lowercase();
+        .to_lowercase()
 }
 
 fn main() {
@@ -29,99 +27,73 @@ fn main() {
     }
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_os::init())
+        .plugin(tauri_plugin_cli::init())
+        .plugin(tauri_plugin_clipboard_manager::init())
         .invoke_handler(tauri::generate_handler![trigger_paste])
-        // .setup(|app| {
-        //     match app.get_cli_matches() {
-        //         // `matches` here is a Struct with { args, subcommand }.
-        //         // `args` is `HashMap<String, ArgData>` where `ArgData` is a struct with { value, occurrences }.
-        //         // `subcommand` is `Option<Box<SubcommandMatches>>` where `SubcommandMatches` is a struct with { name, matches }.
-        //         Ok(matches) => {
-        //             println!("{:?}", matches);
-        //             if matches.args.contains_key("no-copy") {
-        //                 add_to_clipboard = false
-        //             }
-        //         }
-        //         Err(_) => {}
-        //     }
-        //     Ok(())
-        // })
-        .on_window_event(|event| match event.event() {
-            tauri::WindowEvent::Focused(false) => {
-                // Close the window automatically when the user clicks out
-                // Use thread sleep to avoid killing before pasting is done
-                thread::spawn(move || {
-                    thread::sleep(Duration::from_millis(SPAWN_WAIT * 2));
-                    event.window().close().unwrap();
-                    // event.window().hide().unwrap();
-                });
+        .on_window_event(move |window, event| {
+            if let tauri::WindowEvent::Focused(focused) = event {
+                // Close window whenever it loses focus
+                if !focused && window.is_visible().unwrap() {
+                    window.close().unwrap();
+                }
             }
-            _ => {}
         })
         .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .expect("[EmojiMart] Error while running tauri application");
 }
 
-#[tauri::command]
-async fn trigger_paste(
+#[command]
+fn trigger_paste<R: Runtime>(
     emoji: &str,
-    keep: Option<bool>,
-    previous: Option<&str>,
-    app_handle: tauri::AppHandle,
-) -> Result<String, ()> {
-    #[cfg(target_os = "linux")]
-    {
-        if xdg_session_type() == "x11" {
-            // Paste on x11 with xdotool
-            // TODO: for some reason when "xdotool key something" or "xdotool type something" is triggered from rust
-            // it erases the clipboard. It does not happen when xdotool is run directly from the terminal though
-            // Make sure the windows is hidden before pasting:
-            thread::sleep(Duration::from_millis(SPAWN_WAIT));
-            Command::new("xdotool")
-                .arg("type")
-                .arg(emoji)
-                // .arg("key")
-                // .arg("ctrl+shift+v")
-                .spawn()
-                .expect("xdotool paste command failed to start");
-            // For some reason adding this additional paste of the emoji allows to keep the previous clipboard,
-            // and paste the right emoji with xdotool
-            app_handle.clipboard_manager().write_text(emoji).unwrap();
-        } else {
-            // Paste on wayland with ydotool
-            // Type don't work with emojis https://github.com/ReimuNotMoe/ydotool/issues/22
-            // ydotool key 29:1 42:1 47:1 47:0 42:0 29:0
-            // See also: https://github.com/obv-mikhail/InputBot/issues/4
-
-            match Command::new("ydotool")
-                .arg("key")
-                .arg("29:1") // ctrl
-                .arg("42:1") // shift
-                .arg("47:1") // v
-                .arg("47:0")
-                .arg("42:0")
-                .arg("29:0")
-                .spawn()
-            {
-                Ok(_child) => {
-                    // println!("Put back the previous item in the clipboard: {} {}", keep.unwrap(), previous.unwrap());
-                    if keep.unwrap_or(false) && previous.is_some() {
-                        app_handle
-                            .clipboard_manager()
-                            .write_text(previous.unwrap().to_string())
-                            .unwrap();
-                    }
-                }
-                Err(_error) => {}
+    // keep: Option<bool>,
+    app: AppHandle<R>,
+) {
+    // use tauri_plugin_clipboard_manager::ClipboardExt;
+    // let clipboard_content = tauri_plugin_clipboard_manager::ClipKind::PlainText {
+    //     label: Some("EmojiMart".to_string()),
+    //     text: emoji.to_string(),
+    // };
+    // app.clipboard().write(clipboard_content).unwrap();
+    // app.exit needs to be done in a separate thread to copy to clipboard
+    let emoji_owned = emoji.to_string();
+    tauri::async_runtime::spawn(async move {
+        // Auto-paste needs to be done in same thread as app.exit
+        #[cfg(target_os = "linux")]
+        {
+            if xdg_session_type() == "x11" {
+                // Paste on x11 with xdotool
+                Command::new("xdotool")
+                    .arg("type")
+                    .arg(&emoji_owned) // Pass owned string as argument
+                    // .arg("key")
+                    // .arg("ctrl+shift+v")
+                    .spawn()
+                    .expect("[EmojiMart] xdotool paste command failed");
+            } else {
+                // Paste on wayland with ydotool
+                // Type don't work with emojis https://github.com/ReimuNotMoe/ydotool/issues/22
+                // ydotool key 29:1 42:1 47:1 47:0 42:0 29:0
+                // See also: https://github.com/obv-mikhail/InputBot/issues/4
+                Command::new("ydotool")
+                    .arg("key")
+                    .arg("29:1") // ctrl
+                    .arg("42:1") // shift
+                    .arg("47:1") // v
+                    .arg("47:0")
+                    .arg("42:0")
+                    .arg("29:0")
+                    .spawn()
+                    .expect("[EmojiMart] ydotool paste command failed");
             }
         }
-    }
-
-    // #[cfg(not(target_os = "linux"))]
-    // window.close().unwrap();
-    Ok(emoji.to_string())
+        // std::thread::sleep(std::time::Duration::from_millis(500));
+        app.exit(0);
+    });
 }
 
-// Enigo bug with Tauri: https://github.com/enigo-rs/enigo/issues/153
+// Another option to auto-paste: Enigo, but bug with Tauri
+// https://github.com/enigo-rs/enigo/issues/153
 // https://github.com/tauri-apps/tauri/issues/6421
 // use enigo::*;
 // let mut enigo = Enigo::new();

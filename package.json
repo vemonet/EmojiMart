@@ -12,20 +12,23 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test": "vitest",
-		"lint": "prettier --ignore-path .gitignore --check . && eslint . --ignore-path .gitignore",
+		"lint": "eslint . --ignore-path .gitignore",
 		"fmt": "prettier \"**/*.{svelte,ts,tsx,js,cjs,yml,md,html,css}\" --ignore-path .gitignore --write",
 		"internationalize": "node resources/internationalize.js"
 	},
 	"dependencies": {
 		"@emoji-mart/data": "^1.1.2",
-		"@tauri-apps/api": "^1.4.0",
+		"@tauri-apps/api": "^2.0.0-beta.6",
+		"@tauri-apps/plugin-cli": "^2.0.0-beta.2",
+		"@tauri-apps/plugin-clipboard-manager": "^2.0.0-beta.2",
+		"@tauri-apps/plugin-os": "^2.0.0-beta.2",
 		"emoji-mart": "^5.5.2"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/adapter-static": "^1.0.0-next.50",
 		"@sveltejs/kit": "^1.20.4",
-		"@tauri-apps/cli": "^1.4.0",
+		"@tauri-apps/cli": "^2.0.0-beta.11",
 		"@types/cookie": "^0.5.1",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",

@@ -1,13 +1,13 @@
 <script lang="ts">
-	// import data from '@emoji-mart/data'
 	import { Picker } from 'emoji-mart'
-	import { clipboard } from '@tauri-apps/api'
-	import { appWindow } from '@tauri-apps/api/window'
-	import { invoke } from '@tauri-apps/api/tauri'
-	import { getMatches } from '@tauri-apps/api/cli'
-	import { locale } from '@tauri-apps/api/os'
+	import { writeText } from '@tauri-apps/plugin-clipboard-manager'
+	import { getCurrent } from '@tauri-apps/api/window'
+	import { invoke } from '@tauri-apps/api/core'
+	import { getMatches } from '@tauri-apps/plugin-cli'
+	import { locale } from '@tauri-apps/plugin-os'
 	import { onMount, onDestroy } from 'svelte'
 	import type { EmojiData } from './+page'
+	// import data from '@emoji-mart/data'
 
 	const acceptedThemes = ['auto', 'light', 'dark']
 	let theme = 'auto'
@@ -25,22 +25,19 @@
 		if (pickMulti) {
 			selection.push(emoji.native)
 		} else {
-			// Adding to the clipboard and hiding the window is done here
-			// Rust handles auto-paste
-			const previous = await clipboard.readText()
-			clipboard.writeText(emoji.native)
-			appWindow.hide()
-			if (previous) await invoke('trigger_paste', { emoji: emoji.native, keep, previous: previous })
-			else await invoke('trigger_paste', { emoji: emoji.native, keep: false })
-			if (keep && previous) clipboard.writeText(previous)
+			// Adding to the clipboard and hiding the window is done here, Rust handles auto-paste and exit
+			await writeText(emoji.native)
+			await getCurrent().hide()
+			await invoke('trigger_paste', { emoji: emoji.native })
 		}
 	}
 
 	const handleKeypress = (event: any) => {
 		// Close when hit <Esc>
 		if (event.code === 'Escape') {
-			appWindow.close()
+			getCurrent().close()
 		}
+		// TODO: pick multiple emojis when shift selected
 		if (event.code === 'Shift' || event.shiftKey) {
 			pickMulti = true
 		}
@@ -55,7 +52,7 @@
 		if (matches.args['lang'].value) lang = matches.args['lang'].value?.toString().toLowerCase()
 		if (matches.args['theme'].value) theme = matches.args['theme'].value?.toString().toLowerCase()
 		else {
-			const sysTheme = await appWindow.theme()
+			const sysTheme = await getCurrent().theme()
 			if (sysTheme) theme = sysTheme
 		}
 		if (acceptedThemes.indexOf(theme) === -1) {
@@ -65,6 +62,7 @@
 			theme = 'auto'
 		}
 
+		// Load the emoji data from this repo, precompiled for different languages
 		try {
 			// ko/kr replace added to hot fix a mispelling in emoji-mart langs.
 			i18n = (

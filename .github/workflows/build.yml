@@ -58,7 +58,6 @@ jobs:
           releaseDraft: false
           prerelease: false
 
-
   build-flatpak:
     name: 📦️ Build with Flatpak
     needs: build-tauri

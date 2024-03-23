@@ -4,15 +4,15 @@ Modern emoji picker popup for desktop, based on the amazing [Emoji Mart](https:/
 
 - 🍾 Built as a popup: quick invocation through your system custom shortcuts, and disappears when not needed, does not stay as a standalone window, does not run in the background
 - 🔎 Search text box automatically focused and ready to type when invoked
-- ⌨️ Can use the keyboard to navigate and select emojis
+- ⌨️ Use the keyboard to navigate and select emojis
 - 🌍 Complete translation in [22 languages](https://github.com/vemonet/EmojiMart/tree/main/src/data), it will use your system language automatically
 - 🧠 Remember your favorite emojis
 - ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
-- 🧑‍🚀 Uses modern and flexible technologies (TSX for the UI, Rust for the cross-platform compilation, what else?), making it easier to maintain and build upon in the future
-- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app, instead of being added to the clipboard! (it allows to uses emojis without losing what was copied before).
+- 🧑‍🚀 Uses modern and flexible technologies
+- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app.
 - ⚠️ Auto-paste can be enabled also on Wayland, but require to open permissions of `/dev/uinput`, which is not recommended for security.
 
-🆕 This project just had its **first release**, it should be already usable, but you might face bugs as it is not yet battle tested (especially regarding auto-paste). Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
+Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
 
 ![Emoji Mart screenshot](https://raw.github.com/vemonet/EmojiMart/main/resources/screenshot.png)
 
@@ -71,7 +71,7 @@ flatpak run io.github.vemonet.EmojiMart --lang fr
 gsettings set org.gnome.mutter center-new-windows true
 ```
 
-<!-- 
+<!--
 
 ##### ⚠️ Enable auto-paste on Wayland
 
@@ -145,13 +145,10 @@ Inspired by:
 
 - [x] Auto-paste on Wayland: currently using `ydotool` requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`).
 
-  - [ ] Use [libei](https://gitlab.freedesktop.org/libinput/libei): once it has been implemented by mutter: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2628
-  - [ ] And merged to flatpak https://github.com/flatpak/xdg-desktop-portal/pull/762
+  - [ ] Use [libei](https://gitlab.freedesktop.org/libinput/libei): once it has been implemented by mutter: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2628 and merged to flatpak https://github.com/flatpak/xdg-desktop-portal/pull/762
+  - [ ] Recent rust crate for libei protocol: https://crates.io/crates/reis
 
-- [ ] On x11: improve the process to add the emoji to the clipboard > paste > close the app. Currently there is an issue with `xdotool` clearing the clipboard when called from tauri
 - [ ] Select multiple emoji when pressing a specific key, e.g. when pressing shift?
-- [ ] Check if working properly on MacOS
-- [ ] Check if working properly on Windows
 - [ ] Add auto-paste on Windows and MacOS when the compatibility between Enigo and Tauri is resolved (cf. https://github.com/enigo-rs/enigo/issues/15 and https://github.com/tauri-apps/tauri/issues/6421)
 - [ ] Improve persistence https://aptabase.com/blog/persistent-state-tauri-apps
 

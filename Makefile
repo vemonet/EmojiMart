@@ -4,6 +4,7 @@ OS := $(shell uname)
 install:
 	yarn
 	rustup component add rustfmt
+# sudo apt-get install xdotool
 
 # Install ydotool to auto-paste on wayland
 install-wayland:
