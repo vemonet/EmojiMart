@@ -57,6 +57,8 @@ jobs:
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: false
           prerelease: false
+    outputs:
+      version: ${{ steps.create-release.outputs.version }}
 
   build-flatpak:
     name: 📦️ Build with Flatpak
@@ -79,17 +81,17 @@ jobs:
       #     node-version: 18
 
       - name: Update package version in flatpak manifest
-        # env:
-        #   PACKAGE_VERSION: ${{ needs.create-release.outputs.releaseId }}
+        env:
+          PACKAGE_VERSION: ${{ needs.build-tauri.outputs.version }}
         run: |
-          curl -L -o package.json https://raw.github.com/vemonet/EmojiMart/release/package.json
-          PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          rm package.json
-          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
           sed -i "s/- --device=dri/- --device=all/g" ./io.github.vemonet.EmojiMart.yml
           sed -i "s/tag: v[0-9]*\.[0-9]*\.[0-9]*$/tag: v$PACKAGE_VERSION/g" ./io.github.vemonet.EmojiMart.yml
           sed -i "s/<releases>$/<releases>\\n  <release version=\"$PACKAGE_VERSION\" date=\"$(date +%Y-%m-%d)\">\\n  <\/release>\\n/g" ./io.github.vemonet.EmojiMart.appdata.xml
           echo "🏷️ Publishing $PACKAGE_VERSION"
+        # curl -L -o package.json https://raw.github.com/vemonet/EmojiMart/release/package.json
+        # PACKAGE_VERSION=$(node -p "require('./package.json').version")
+        # rm package.json
+        # echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
 
       - name: Build flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
