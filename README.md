@@ -9,7 +9,7 @@ Modern emoji picker popup for desktop, based on the amazing [Emoji Mart](https:/
 - 🍾 Built as a popup: quick invocation through your system custom shortcuts, and disappears when not needed, does not stay as a standalone window, does not run in the background
 - 🔎 Search text box automatically focused and ready to type when invoked
 - ⌨️ Use the keyboard to navigate and select emojis
-- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app.
+- ✒️ On x11 the selected emoji is automatically pasted to your currently focused app
 - 🌍 Complete translation in [22 languages](https://github.com/vemonet/EmojiMart/tree/main/src/data), it will use your system language automatically
 - 🧠 Remembers your frequently used emojis
 - ⚔️ Cross-platform, it can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
@@ -66,6 +66,12 @@ flatpak run io.github.vemonet.EmojiMart --theme light
 
 ```bash
 flatpak run io.github.vemonet.EmojiMart --lang fr
+```
+
+♻️ If you want to only rely on auto-paste and keep what is in your clipboard use the `--keep` argument:
+
+```bash
+flatpak run io.github.vemonet.EmojiMart --keep
 ```
 
 👣 If you are using **Wayland on GNOME** we recommend to enable new windows to be **centered**, otherwise the popup will appear on the top left corner. If you are using Mutter, the default window composer for GNOME, you can do so by running the following command:
