@@ -26,7 +26,7 @@
 			selection.push(emoji.native)
 		} else {
 			// Adding to the clipboard and hiding the window is done here, Rust handles auto-paste and exit
-			await writeText(emoji.native)
+			if (!keep) await writeText(emoji.native)
 			await getCurrent().hide()
 			await invoke('trigger_paste', { emoji: emoji.native })
 		}

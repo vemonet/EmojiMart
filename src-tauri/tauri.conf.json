@@ -17,12 +17,12 @@
     ]
   },
   "productName": "EmojiMart",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "identifier": "io.github.vemonet.EmojiMart",
   "plugins": {
     "cli": {
-      "description": "EmojiMart picker",
-      "longDescription": "EmojiMart picker",
+      "description": "Emoji picker popup app",
+      "longDescription": "A desktop app to quickly find and pick emojis that will be copied to your clipboard",
       "afterHelp": "Use --keep to keep the existing item in your clipboard, the emoji will not be copied to the clipboard, and you will only to rely on auto-paste",
       "args": [
         {

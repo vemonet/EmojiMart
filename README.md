@@ -1,18 +1,21 @@
 # <span><img width="35" height="35" src="https://github.com/vemonet/EmojiMart/blob/main/src-tauri/icons/128x128.png"></span> Emoji Mart desktop popup
 
+[![FlatHub release](https://img.shields.io/flathub/v/io.github.vemonet.EmojiMart)](https://flathub.org/apps/io.github.vemonet.EmojiMart)
+[![Latest release](https://shields.io/github/v/release/vemonet/EmojiMart?label=download)](https://github.com/vemonet/EmojiMart/releases/latest)
+[![Build](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml/badge.svg)](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml)
+
 Modern emoji picker popup for desktop, based on the amazing [Emoji Mart](https://github.com/missive/emoji-mart) web component, built with [Tauri](https://tauri.app/) and [Svelte](https://svelte.dev).
 
 - 🍾 Built as a popup: quick invocation through your system custom shortcuts, and disappears when not needed, does not stay as a standalone window, does not run in the background
 - 🔎 Search text box automatically focused and ready to type when invoked
 - ⌨️ Use the keyboard to navigate and select emojis
-- 🌍 Complete translation in [22 languages](https://github.com/vemonet/EmojiMart/tree/main/src/data), it will use your system language automatically
-- 🧠 Remember your favorite emojis
-- ⚔️ Cross-platform, can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
-- 🧑‍🚀 Uses modern and flexible technologies
 - ✒️ On x11 the selected emoji is automatically pasted to your currently focused app.
-- ⚠️ Auto-paste can be enabled also on Wayland, but require to open permissions of `/dev/uinput`, which is not recommended for security.
+- 🌍 Complete translation in [22 languages](https://github.com/vemonet/EmojiMart/tree/main/src/data), it will use your system language automatically
+- 🧠 Remembers your frequently used emojis
+- ⚔️ Cross-platform, it can be installed natively on Linux, MacOS, or Windows (although only tested on Linux at the moment)
+- 🧑‍🚀 Built with Tauri, TypeScript, and Svelte
 
-Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
+> Please report any weird behavior in the GitHub issues! And feel free to contribute, the codebase is quite small and understandable.
 
 ![Emoji Mart screenshot](https://raw.github.com/vemonet/EmojiMart/main/resources/screenshot.png)
 
@@ -143,7 +146,7 @@ Inspired by:
 
 ### ☑️ Todo
 
-- [x] Auto-paste on Wayland: currently using `ydotool` but requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`).
+- [ ] Auto-paste on Wayland: currently using `ydotool` but requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`). And it tries to install files at the wrong place in flatpak, so it fails
 
   - [ ] Use [libei](https://gitlab.freedesktop.org/libinput/libei): once it has been implemented by mutter: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2628 and merged to flatpak https://github.com/flatpak/xdg-desktop-portal/pull/762
   - [ ] Recent rust crate for libei protocol: https://crates.io/crates/reis
@@ -153,9 +156,6 @@ Inspired by:
 - [ ] Improve persistence https://aptabase.com/blog/persistent-state-tauri-apps
 
 ## 🛠️ Development
-
-[![Latest release](https://shields.io/github/v/release/vemonet/EmojiMart)](https://github.com/vemonet/EmojiMart/releases/latest)
-[![Build](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml/badge.svg)](https://github.com/vemonet/EmojiMart/actions/workflows/build.yml)
 
 Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
 

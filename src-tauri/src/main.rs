@@ -14,17 +14,18 @@ fn xdg_session_type() -> String {
 }
 
 fn main() {
-    // If wayland: start ydotool for auto-paste
-    #[cfg(target_os = "linux")]
-    if xdg_session_type() == "wayland" {
-        // ydotoold --socket-path="$HOME/.ydotool_socket" --socket-own="$(id -u):$(id -g)"
-        match Command::new("ydotoold").spawn() {
-            Ok(_child) => {}
-            Err(error) => {
-                eprintln!("[EmojiMart] ydotoold daemon failed to start: {}", error);
-            }
-        }
-    }
+    // NOTE: ydotool disabled atm, because it won't build in flatpak
+    // // If wayland: start ydotool for auto-paste
+    // #[cfg(target_os = "linux")]
+    // if xdg_session_type() == "wayland" {
+    //     // ydotoold --socket-path="$HOME/.ydotool_socket" --socket-own="$(id -u):$(id -g)"
+    //     match Command::new("ydotoold").spawn() {
+    //         Ok(_child) => {}
+    //         Err(error) => {
+    //             eprintln!("[EmojiMart] ydotoold daemon failed to start: {}", error);
+    //         }
+    //     }
+    // }
 
     tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
@@ -43,19 +44,22 @@ fn main() {
         .expect("[EmojiMart] Error while running tauri application");
 }
 
+/// Trigger auto-paste of emoji and close the app
 #[command]
 fn trigger_paste<R: Runtime>(
     emoji: &str,
     // keep: Option<bool>,
     app: AppHandle<R>,
 ) {
+    // Example copy to clipboard from rust
     // use tauri_plugin_clipboard_manager::ClipboardExt;
     // let clipboard_content = tauri_plugin_clipboard_manager::ClipKind::PlainText {
     //     label: Some("EmojiMart".to_string()),
     //     text: emoji.to_string(),
     // };
     // app.clipboard().write(clipboard_content).unwrap();
-    // app.exit needs to be done in a separate thread to copy to clipboard
+
+    // NOTE: app.exit needs to be done in a separate thread to copy to clipboard
     let emoji_owned = emoji.to_string();
     tauri::async_runtime::spawn(async move {
         // Auto-paste needs to be done in same thread as app.exit
@@ -70,22 +74,23 @@ fn trigger_paste<R: Runtime>(
                     // .arg("ctrl+shift+v")
                     .spawn()
                     .expect("[EmojiMart] xdotool paste command failed");
-            } else {
-                // Paste on wayland with ydotool
-                // Type don't work with emojis https://github.com/ReimuNotMoe/ydotool/issues/22
-                // ydotool key 29:1 42:1 47:1 47:0 42:0 29:0
-                // See also: https://github.com/obv-mikhail/InputBot/issues/4
-                Command::new("ydotool")
-                    .arg("key")
-                    .arg("29:1") // ctrl
-                    .arg("42:1") // shift
-                    .arg("47:1") // v
-                    .arg("47:0")
-                    .arg("42:0")
-                    .arg("29:0")
-                    .spawn()
-                    .expect("[EmojiMart] ydotool paste command failed");
             }
+            // else {
+            //     // Paste on wayland with ydotool
+            //     // Type don't work with emojis https://github.com/ReimuNotMoe/ydotool/issues/22
+            //     // ydotool key 29:1 42:1 47:1 47:0 42:0 29:0
+            //     // See also: https://github.com/obv-mikhail/InputBot/issues/4
+            //     Command::new("ydotool")
+            //         .arg("key")
+            //         .arg("29:1") // ctrl
+            //         .arg("42:1") // shift
+            //         .arg("47:1") // v
+            //         .arg("47:0")
+            //         .arg("42:0")
+            //         .arg("29:0")
+            //         .spawn()
+            //         .expect("[EmojiMart] ydotool paste command failed");
+            // }
         }
         // std::thread::sleep(std::time::Duration::from_millis(500));
         app.exit(0);

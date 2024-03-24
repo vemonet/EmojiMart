@@ -4,7 +4,7 @@
 
 <svelte:head>
 	<title>Emoji Mart</title>
-	<meta name="description" content="Emoji Mart picker app" />
+	<meta name="description" content="Emoji picker popup app" />
 </svelte:head>
 
 <main>
