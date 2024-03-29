@@ -58,9 +58,14 @@ jobs:
           releaseDraft: false
           prerelease: false
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifacts
+          path: ${{ steps.create-release.outputs.artifacts }}
+
       - name: Get current commit ID
         id: get_commit
-        run: echo "::set-output name=commit_id::$(git rev-parse HEAD)"
+        run: echo "{commit_id}=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
     outputs:
       version: ${{ steps.create-release.outputs.version }}

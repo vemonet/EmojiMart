@@ -80,6 +80,10 @@ flatpak run io.github.vemonet.EmojiMart --keep
 gsettings set org.gnome.mutter center-new-windows true
 ```
 
+> [!CAUTION]
+>
+> Tauri v2 crashes when used with flatpak on Wayland (as usual Wayland breaks everything). So you will need to use the `.appimage` or the flatpak `v0.2.4`
+
 <!--
 
 ##### ⚠️ Enable auto-paste on Wayland
@@ -98,7 +102,7 @@ And add this udev rule which will enable your user to access `/dev/uinput`:
 ```bash
 echo "KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"$(id -gn)\", TAG+=\"uaccess\"" | sudo tee -a /etc/udev/rules.d/99-uinput.rules
 # Or this command should work too but I did not tested it yet:
-sudo usermod -a -G input $(id -u)
+sudo usermod -a -G input $(whoami)
 # Then reboot to make sure changes are loaded
 sudo reboot
 ```
@@ -155,7 +159,7 @@ Inspired by:
 - [ ] Auto-paste on Wayland: currently using `ydotool` but requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`). And it tries to install files at the wrong place in flatpak, so it fails
 
   - [ ] Use [libei](https://gitlab.freedesktop.org/libinput/libei): once it has been implemented by mutter: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2628 and merged to flatpak https://github.com/flatpak/xdg-desktop-portal/pull/762
-  - [ ] Recent rust crate for libei protocol: https://crates.io/crates/reis
+  - [ ] Recent rust [crate for libei](https://crates.io/crates/reis) protocol: https://github.com/ids1024/reis/blob/master/examples/type-text.rs
 
 - [ ] Select multiple emoji when pressing a specific key, e.g. when pressing shift
 - [ ] Add auto-paste on Windows and MacOS when the compatibility between Enigo and Tauri is resolved (cf. https://github.com/enigo-rs/enigo/issues/15 and https://github.com/tauri-apps/tauri/issues/6421)
