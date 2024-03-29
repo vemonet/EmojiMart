@@ -59,6 +59,7 @@ jobs:
           prerelease: false
 
       - uses: actions/upload-artifact@v4
+        if: matrix.platform == 'ubuntu-latest'
         with:
           name: artifacts
           path: |
