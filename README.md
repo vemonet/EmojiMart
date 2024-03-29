@@ -109,9 +109,9 @@ sudo reboot
 
 -->
 
-<details><summary>Alternatively, but not recommended, you can also use the <code>.AppImage</code> file</summary>
+<details><summary>Alternatively, you can use the <code>.AppImage</code> file</summary>
 
-This is not recommended, as the apps takes longer to startup than with the flatpak, and not all dependencies are included to auto-paste.
+This is not recommended, as the app takes slightly longer to startup than with flatpak, and not all dependencies are included to auto-paste.
 
 Run this command to download the `.AppImage`, and create a desktop file for it:
 

@@ -61,7 +61,14 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: artifacts
-          path: ${{ steps.create-release.outputs.artifacts }}
+          path: |
+            src-tauri/target/release/**/*.exe
+            src-tauri/target/release/**/*.msi
+            src-tauri/target/release/**/*.deb
+            src-tauri/target/release/**/*.AppImage
+            src-tauri/target/release/**/*.dmg
+            !src-tauri/target/release/deps
+            !src-tauri/target/release/build
 
       - name: Get current commit ID
         id: get_commit
