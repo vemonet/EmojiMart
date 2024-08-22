@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Picker } from 'emoji-mart'
 	import { writeText } from '@tauri-apps/plugin-clipboard-manager'
-	import { getCurrent } from '@tauri-apps/api/window'
+	import { getCurrentWindow } from '@tauri-apps/api/window'
 	import { invoke } from '@tauri-apps/api/core'
 	import { getMatches } from '@tauri-apps/plugin-cli'
 	import { locale } from '@tauri-apps/plugin-os'
@@ -27,7 +27,7 @@
 		} else {
 			// Adding to the clipboard and hiding the window is done here, Rust handles auto-paste and exit
 			if (!keep) await writeText(emoji.native)
-			await getCurrent().hide()
+			await getCurrentWindow().hide()
 			await invoke('trigger_paste', { emoji: emoji.native })
 		}
 	}
@@ -35,7 +35,7 @@
 	const handleKeypress = (event: any) => {
 		// Close when hit <Esc>
 		if (event.code === 'Escape') {
-			getCurrent().close()
+			getCurrentWindow().close()
 		}
 		// TODO: pick multiple emojis when shift selected
 		if (event.code === 'Shift' || event.shiftKey) {
@@ -52,7 +52,7 @@
 		if (matches.args['lang'].value) lang = matches.args['lang'].value?.toString().toLowerCase()
 		if (matches.args['theme'].value) theme = matches.args['theme'].value?.toString().toLowerCase()
 		else {
-			const sysTheme = await getCurrent().theme()
+			const sysTheme = await getCurrentWindow().theme()
 			if (sysTheme) theme = sysTheme
 		}
 		if (acceptedThemes.indexOf(theme) === -1) {

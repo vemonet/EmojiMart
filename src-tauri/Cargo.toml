@@ -10,15 +10,20 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+# For mobile https://v2.tauri.app/start/migrate/from-tauri-1/ but this is bugged of course and create an error in main.rs
+# [lib]
+# name = "app_lib"
+# crate-type = ["staticlib", "cdylib", "rlib"]
+
 [build-dependencies]
-tauri-build = { version = "2.0.0-beta.10", features = [] }
+tauri-build = { version = "2.0.0-rc.6", features = [] }
 
 [dependencies]
-tauri = { version = "2.0.0-beta.13", features = ["rustls-tls"] }
+tauri = { version = "2.0.0-rc.6", features = ["rustls-tls"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-tauri-plugin-os = "2.0.0-beta.2"
-tauri-plugin-clipboard-manager = "2.0.0-beta.2"
+tauri-plugin-os = "2.0.0-rc.0"
+tauri-plugin-clipboard-manager = "2.0.0-rc.0"
 # tauri-plugin-clipboard-manager = "2.1.0-beta.0" # Build fails
 # enigo = "0.1.2"
 
@@ -28,7 +33,7 @@ tauri-plugin-clipboard-manager = "2.0.0-beta.2"
 custom-protocol = ["tauri/custom-protocol"]
 
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
-tauri-plugin-cli = "2.0.0-beta.2"
+tauri-plugin-cli = "2.0.0-rc.0"
 
 # [profile.release]
 # panic = "abort" # Strip expensive panic clean-up logic

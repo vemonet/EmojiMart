@@ -1,4 +1,7 @@
 {
+  "productName": "EmojiMart",
+  "version": "0.3.0",
+  "identifier": "io.github.vemonet.EmojiMart",
   "build": {
     "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn build",
@@ -16,9 +19,6 @@
       "icons/icon.ico"
     ]
   },
-  "productName": "EmojiMart",
-  "version": "0.3.0",
-  "identifier": "io.github.vemonet.EmojiMart",
   "plugins": {
     "cli": {
       "description": "Emoji picker popup app",
