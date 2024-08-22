@@ -3,8 +3,8 @@
   "version": "0.3.0",
   "identifier": "io.github.vemonet.EmojiMart",
   "build": {
-    "beforeDevCommand": "yarn dev",
-    "beforeBuildCommand": "yarn build",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
     "frontendDist": "../build",
     "devUrl": "http://localhost:5173"
   },

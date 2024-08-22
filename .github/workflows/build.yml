@@ -33,11 +33,11 @@ jobs:
           sudo apt-get install -y build-essential libwebkit2gtk-4.1-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
 
       - name: Install frontend dependencies
-        run: yarn
+        run: npm ci
 
       - name: Lint check
         if: matrix.platform == 'ubuntu-latest'
-        run: yarn lint
+        run: npm run lint
 
       - name: Build with tauri to test
         if: github.ref != 'refs/heads/release'

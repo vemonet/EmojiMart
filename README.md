@@ -171,7 +171,7 @@ Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev), [TypeScrip
 
 Recommended IDE Setup: [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
-Requirements: [yarn v1](https://classic.yarnpkg.com) (v3 is not supported by flatpak to generate npm sources)
+Requirements: NodeJS (20 ideally)
 
 See pre-requesites to run tauri: https://tauri.app/v1/guides/getting-started/prerequisites
 
@@ -243,7 +243,6 @@ To automatically upgrade dependencies with `yarn` and `cargo` you can run:
 
 ```bash
 make upgrade
-yarn upgrade-interactive --latest
 ```
 
 ### 🏷️ New release

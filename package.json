@@ -6,6 +6,7 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
+		"tauri": "tauri",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -102,7 +103,7 @@
 			}
 		],
 		"ignorePatterns": [
-			"yarn.lock"
+			"package-lock.json"
 		]
 	}
 }

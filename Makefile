@@ -2,7 +2,7 @@ OS := $(shell uname)
 .PHONY: install install-wayland upgrade dev build i18n bump release icon fmt desktop-local clean
 
 install:
-	yarn
+	npm ci
 	rustup component add rustfmt
 # sudo apt-get install xdotool
 
@@ -15,15 +15,15 @@ install-wayland:
 	ydotoold &
 
 upgrade:
-	yarn upgrade @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
+	npm upgrade @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
 	cd src-tauri && cargo update
 
 dev:
-	yarn tauri dev
+	npm run tauri dev
 
 build:
-	yarn tauri build
-
+	npm run tauri build
+😶
 i18n:
 	git -C "cldr-json" pull || git clone https://github.com/unicode-org/cldr-json.git "cldr-json"
 	git -C "emoji-mart" pull || git clone https://github.com/missive/emoji-mart.git "emoji-mart"
@@ -45,8 +45,8 @@ release:
 
 fmt:
 	cd src-tauri && cargo fmt
-	yarn fmt
-	yarn lint
+	npm run fmt
+	npm run lint
 
 desktop-local:
 	cp "src-tauri/target/release/bundle/appimage/emoji-mart_*_amd64.AppImage" "~/.local/bin/EmojiMart.AppImage"
@@ -61,4 +61,4 @@ clean:
 
 icon:
 	echo "Put the icon in this repository root folder, and name it app-icon.png"
-	yarn tauri icon
+	npm run tauri icon
