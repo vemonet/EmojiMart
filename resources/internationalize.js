@@ -1,5 +1,9 @@
 import { readFileSync, readdirSync, writeFileSync } from 'fs'
 
+const emojiVersion = process.argv[2] || "15";
+
+console.log(`🚀 Generating translations for emojis version ${emojiVersion}`)
+
 // ️Variation Selector-16
 const VS16 = '\ufe0f'
 // Zero Width Joiner
@@ -14,7 +18,7 @@ const capitalize = ['fr', 'es', 'de', 'cs', 'nl']
 async function main() {
 	// Read emoji-mart data
 	let martData = JSON.parse(
-		readFileSync('emoji-mart/packages/emoji-mart-data/sets/14/native.json', 'utf-8')
+		readFileSync(`emoji-mart/packages/emoji-mart-data/sets/${emojiVersion}/native.json`, 'utf-8')
 	)
 	// const martData = await (await fetch(`https://raw.github.com/missive/emoji-mart/main/packages/emoji-mart-data/sets/14/native.json`)).json()
 
@@ -25,9 +29,7 @@ async function main() {
 	})
 
 	for (let lang of langs) {
-		// Fix for korean lang not properly defined in emoji-mart
-		if (lang == 'kr') lang = 'ko'
-		console.log(`🏳️ Generating translation for ${lang}`)
+		console.log(`✔️ Translating to ${lang}`)
 		try {
 			// Read CLDR data: git clone https://github.com/unicode-org/cldr-json
 			const langFull = JSON.parse(
@@ -74,7 +76,7 @@ async function main() {
 			// Write localized data
 			writeFileSync(`${targetFolder}/${lang}.json`, JSON.stringify(martData))
 		} catch (_err) {
-			console.error(`⚠️ Could not find cldr language file for ${lang}`)
+			console.warn(`⚠️ Could not find cldr language file for ${lang}`)
 		}
 	}
 }

@@ -245,6 +245,12 @@ To automatically upgrade dependencies with `yarn` and `cargo` you can run:
 make upgrade
 ```
 
+Generate translated description in 22 languages for all emojis of a certain [version](https://github.com/missive/emoji-mart/tree/main/packages/emoji-mart-data/sets):
+
+```bash
+make translate version=15
+```
+
 ### 🏷️ New release
 
 To publish a new release, follow this process:

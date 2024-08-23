@@ -24,10 +24,10 @@ dev:
 build:
 	npm run tauri build
 
-i18n:
+translate:
 	git -C "cldr-json" pull || git clone https://github.com/unicode-org/cldr-json.git "cldr-json"
 	git -C "emoji-mart" pull || git clone https://github.com/missive/emoji-mart.git "emoji-mart"
-	node resources/internationalize.js
+	node resources/internationalize.js $(version)
 
 bump:
 	sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\",/\"version\": \"$(version)\",/g" ./package.json
