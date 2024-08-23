@@ -64,12 +64,7 @@
 
 		// Load the emoji data from this repo, precompiled for different languages
 		try {
-			// ko/kr replace added to hot fix a mispelling in emoji-mart langs.
-			i18n = (
-				await import(`../../node_modules/@emoji-mart/data/i18n/${lang.replace('ko', 'kr')}.json`)
-			).default
-			// const i18n = (await import(`@emoji-mart/data/i18n/${lang}.json`)).default;
-
+			i18n = (await import(`@emoji-mart/data/i18n/${lang}.json`)).default;
 			data = (await import(`../data/${lang}.json`)).default
 		} catch (err) {
 			console.error(`Language ${lang} not supported, loading default`)
