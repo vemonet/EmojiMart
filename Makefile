@@ -23,7 +23,7 @@ dev:
 
 build:
 	npm run tauri build
-😶
+
 i18n:
 	git -C "cldr-json" pull || git clone https://github.com/unicode-org/cldr-json.git "cldr-json"
 	git -C "emoji-mart" pull || git clone https://github.com/missive/emoji-mart.git "emoji-mart"

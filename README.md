@@ -159,7 +159,7 @@ Inspired by:
 - [ ] Auto-paste on Wayland: currently using `ydotool` but requires too many permissions (`--device=all` and user r/w access to `/dev/uinput`). And it tries to install files at the wrong place in flatpak, so it fails
 
   - [ ] Use [libei](https://gitlab.freedesktop.org/libinput/libei): once it has been implemented by mutter: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2628 and merged to flatpak https://github.com/flatpak/xdg-desktop-portal/pull/762
-  - [ ] Recent rust [crate for libei](https://crates.io/crates/reis) protocol: https://github.com/ids1024/reis/blob/master/examples/type-text.rs
+  - [ ] Recent rust [crate for libei](https://crates.io/crates/reis) protocol: https://github.com/ids1024/reis/blob/master/examples/type-text.rs which uses [ashpd](https://docs.rs/ashpd/latest/ashpd/)
 
 - [ ] Select multiple emoji when pressing a specific key, e.g. when pressing shift
 - [ ] Add auto-paste on Windows and MacOS when the compatibility between Enigo and Tauri is resolved (cf. https://github.com/enigo-rs/enigo/issues/15 and https://github.com/tauri-apps/tauri/issues/6421)
@@ -167,7 +167,7 @@ Inspired by:
 
 ## 🛠️ Development
 
-Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev), [TypeScript](https://www.typescriptlang.org/), and [Vite](https://vitejs.dev/).
+Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev), and [TypeScript](https://www.typescriptlang.org/).
 
 Recommended IDE Setup: [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
