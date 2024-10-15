@@ -49,7 +49,6 @@ pub fn run() {
         .expect("[EmojiMart] Error while running tauri application");
 }
 
-
 // fn show_window(app: &AppHandle) {
 //     let windows = app.webview_windows();
 //     windows

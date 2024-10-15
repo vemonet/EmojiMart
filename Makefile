@@ -46,7 +46,6 @@ release:
 fmt:
 	cd src-tauri && cargo fmt
 	npm run fmt
-	npm run lint
 
 desktop-local:
 	cp "src-tauri/target/release/bundle/appimage/emoji-mart_*_amd64.AppImage" "~/.local/bin/EmojiMart.AppImage"

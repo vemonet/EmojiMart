@@ -64,7 +64,7 @@
 
 		// Load the emoji data from this repo, precompiled for different languages
 		try {
-			i18n = (await import(`@emoji-mart/data/i18n/${lang}.json`)).default;
+			i18n = (await import(`@emoji-mart/data/i18n/${lang}.json`)).default
 			data = (await import(`../data/${lang}.json`)).default
 		} catch (err) {
 			console.error(`Language ${lang} not supported, loading default`)

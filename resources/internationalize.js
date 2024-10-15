@@ -1,6 +1,6 @@
 import { readFileSync, readdirSync, writeFileSync } from 'fs'
 
-const emojiVersion = process.argv[2] || "15";
+const emojiVersion = process.argv[2] || '15'
 
 console.log(`🚀 Generating translations for emojis version ${emojiVersion}`)
 

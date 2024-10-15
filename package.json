@@ -14,7 +14,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"upgrade": "npx npm-check-updates -u && npm install",
 		"test": "vitest",
-		"lint": "eslint . --ignore-path .gitignore",
+		"lint": "eslint .",
 		"fmt": "prettier \"**/*.{svelte,ts,tsx,js,cjs,yml,md,html,css}\" --ignore-path .gitignore --write",
 		"internationalize": "node resources/internationalize.js"
 	},
