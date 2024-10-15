@@ -7,11 +7,12 @@
   "permissions": [
     "core:path:default",
     "core:event:default",
-    "core:window:default",
     "core:app:default",
     "core:resources:default",
     "core:menu:default",
     "core:tray:default",
+    "core:window:default",
+    "core:window:allow-set-focus",
     "core:window:allow-center",
     "core:window:allow-show",
     "core:window:allow-hide",
@@ -27,9 +28,9 @@
     "os:allow-exe-extension",
     "os:allow-locale",
     "os:allow-hostname",
+    "clipboard-manager:default",
     "clipboard-manager:allow-read-text",
     "clipboard-manager:allow-write-text",
-    "clipboard-manager:default",
     "cli:default"
   ]
 }

@@ -15,7 +15,7 @@ install-wayland:
 	ydotoold &
 
 upgrade:
-	npm upgrade @tauri-apps/cli @tauri-apps/api emoji-mart @emoji-mart/data
+	npm run upgrade
 	cd src-tauri && cargo update
 
 dev:

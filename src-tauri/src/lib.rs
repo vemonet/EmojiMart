@@ -5,6 +5,7 @@ use std::env;
 use std::process::Command;
 
 use tauri::{command, AppHandle, Runtime};
+// use tauri::{command, AppHandle, Manager, Runtime};
 
 /// Check if x11 or wayland is used
 fn xdg_session_type() -> String {
@@ -28,6 +29,10 @@ pub fn run() {
     // }
 
     tauri::Builder::default()
+        // .plugin(tauri_plugin_single_instance::init())
+        // .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+        //     show_window(app);
+        // }))
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_cli::init())
         .plugin(tauri_plugin_clipboard_manager::init())
@@ -43,6 +48,17 @@ pub fn run() {
         .run(tauri::generate_context!())
         .expect("[EmojiMart] Error while running tauri application");
 }
+
+
+// fn show_window(app: &AppHandle) {
+//     let windows = app.webview_windows();
+//     windows
+//         .values()
+//         .next()
+//         .expect("Sorry, no window found")
+//         .set_focus()
+//         .expect("Can't Bring Window to Focus");
+// }
 
 /// Trigger auto-paste of emoji and close the app
 #[command]
