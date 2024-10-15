@@ -48,7 +48,7 @@ Or you can do it from the terminal, but you will need to adapt it if you already
 gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings
 
 # Create shortcut 0 triggered with Super+E
-gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Emoji Mart'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'flatpak run io.github.vemonet.EmojiMart'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>e'
@@ -258,7 +258,7 @@ To publish a new release, follow this process:
 1. Changed the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`, you can use this script to do it automatically for a specific new version:
 
    ```bash
-   make bump version=0.1.2
+   make bump version=patch
    ```
 
 2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub:
