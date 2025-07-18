@@ -137,9 +137,9 @@ Then create a custom shortcut for the command: `flatpak run io.github.vemonet.Em
 
 ### 🪟 Windows
 
-Download the `.exe` for the [latest release](https://github.com/vemonet/EmojiMart/releases/latest), and install it.
+Download the `.exe` or `.msi` installer for the [latest release](https://github.com/vemonet/EmojiMart/releases/latest), and install it.
 
-Then create a custom shortcut for the command: `flatpak run io.github.vemonet.EmojiMart` to invoke it quickly.
+The installer will add a Start menu shortcut, and can optionally create a Desktop shortcut. You can pin either of these shortcuts to your Taskbar for quick access. For even quicker access, modify the shortcut (via its Properties dialog box) to assign a keyboard combination for its invocation.
 
 ## 📋️ Notes
 
