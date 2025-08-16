@@ -255,7 +255,7 @@ make translate version=15
 
 To publish a new release, follow this process:
 
-1. Changed the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`, you can use this script to do it automatically for a specific new version:
+1. Change the version in: `package.json`, `src-tauri/Cargo.toml` and `src-tauri/tauri.conf.json`, you can use this script to do it automatically for a specific new version (this will also create a commit):
 
    ```bash
    make bump version=patch
