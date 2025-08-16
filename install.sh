@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Script to install the Emoji Mart AppImage as desktop application on linux
-VERSION="0.3.0"
+VERSION="0.3.1"
 
 if [ -z $1 ]; then
     echo "⏳️ Downloading Emoji Mart AppImage and its desktop file..."
