@@ -30,7 +30,16 @@ translate:
 	node resources/internationalize.js $(version)
 
 bump:
-	npx tauri-version $(version)
+	npx tauri-version $(version) --no-git
+	npm i
+	cd src-tauri && cargo update
+	cd ..
+	git add .
+	git commit -m "chore: release $(version)"
+	git tag -a v$(version) -m "Release $(version)"
+	git push origin v$(version)
+	git push
+
 
 # sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\",/\"version\": \"$(version)\",/g" ./package.json
 # sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"$(version)\"/g" ./src-tauri/tauri.conf.json

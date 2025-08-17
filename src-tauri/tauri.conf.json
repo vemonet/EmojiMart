@@ -1,6 +1,6 @@
 {
   "productName": "EmojiMart",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "identifier": "io.github.vemonet.EmojiMart",
   "build": {
     "beforeDevCommand": "npm run dev",
