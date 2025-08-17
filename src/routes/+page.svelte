@@ -10,20 +10,20 @@
 	// import data from '@emoji-mart/data'
 
 	const acceptedThemes = ['auto', 'light', 'dark']
-	let theme = 'auto'
-	let lang = 'en'
+	let theme = $state('auto')
+	let lang = $state('en')
 	// Supported: ar, be, cs, de, en, es, fa, fi, fr, hi, it, ja, ko, nl, pl, pt, ru, sa, tr, uk, vi, zh
-	let i18n: any = null
-	let data: any = null
-	let picker: any
-	let keep = false
-	let pickMulti = false
-	let selection: string[] = []
+	let i18n: any = $state(null)
+	let data: any = $state(null)
+	let picker: any = $state()
+	let keep = $state(false)
+	let pickMulti = $state(false)
+	let selection: string[] = $state([])
 
 	// Add to clipboard and close when clicking an emoji
 	const onEmojiSelect = async (emoji: EmojiData) => {
 		if (pickMulti) {
-			selection.push(emoji.native)
+			selection = [...selection, emoji.native]
 		} else {
 			// Adding to the clipboard and hiding the window is done here, Rust handles auto-paste and exit
 			if (!keep) await writeText(emoji.native)
@@ -73,9 +73,10 @@
 		// Create the picker
 		picker.append(
 			new Picker({
+				// @ts-ignore data is required
 				data,
 				onEmojiSelect,
-				theme,
+				theme: theme as 'auto' | 'light' | 'dark',
 				i18n,
 				autoFocus: true,
 				dynamicWidth: true,
@@ -92,7 +93,7 @@
 
 <!-- https://svelte.dev/tutorial/bind-this -->
 <section>
-	<div bind:this={picker} />
+	<div bind:this={picker}></div>
 	{#if selection.length > 0}
 		<p>{selection.join(' ')}</p>
 	{/if}

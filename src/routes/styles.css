@@ -19,6 +19,7 @@ body {
 em-emoji-picker {
 	height: 550px;
 	/* height: 100%; */
+	color: transparent;
 	max-height: 100%;
 	width: 100%;
 	--border-radius: 10px;
