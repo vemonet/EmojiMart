@@ -61,15 +61,34 @@ jobs:
           releaseDraft: false
           prerelease: false
 
-      - uses: actions/upload-artifact@v4
-        if: matrix.platform == 'ubuntu-latest'
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        if: matrix.platform == 'windows-latest'
         with:
-          name: artifacts
+          name: windows-artifacts
           path: |
             src-tauri/target/release/**/*.exe
             src-tauri/target/release/**/*.msi
+            !src-tauri/target/release/deps
+            !src-tauri/target/release/build
+
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        if: matrix.platform == 'ubuntu-latest'
+        with:
+          name: linux-artifacts
+          path: |
             src-tauri/target/release/**/*.deb
             src-tauri/target/release/**/*.AppImage
+            !src-tauri/target/release/deps
+            !src-tauri/target/release/build
+
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
+        if: matrix.platform == 'macos-latest'
+        with:
+          name: macos-artifacts
+          path: |
             src-tauri/target/release/**/*.dmg
             !src-tauri/target/release/deps
             !src-tauri/target/release/build
