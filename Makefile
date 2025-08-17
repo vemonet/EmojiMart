@@ -36,7 +36,7 @@ bump:
 	cd ..
 	git add .
 	git commit -m "chore: release $(version)"
-	git tag -a v$(version) -m "Release $(version)"
+	git tag -a v$(version) -m "Release v$(version)"
 	git push origin v$(version)
 	git push
 

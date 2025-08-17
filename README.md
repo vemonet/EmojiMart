@@ -261,10 +261,6 @@ To publish a new release, follow this process:
    make bump version=patch
    ```
 
-   > [!CAUTION]
-   >
-   > Seems like `tauri-version` does not update anymore version in `package.json`, so you'll need to do these changes manually.
-
 2. Merge the `main` branch to the `release` branch, and push the `release` branch to GitHub:
 
    ```bash
