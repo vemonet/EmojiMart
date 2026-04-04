@@ -92,7 +92,7 @@
 </script>
 
 <!-- https://svelte.dev/tutorial/bind-this -->
-<section>
+<section aria-label="Emoji picker" oncontextmenu={(e) => e.preventDefault()}>
 	<div bind:this={picker}></div>
 	{#if selection.length > 0}
 		<p>{selection.join(' ')}</p>
