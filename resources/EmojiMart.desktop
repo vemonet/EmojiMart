@@ -6,4 +6,4 @@ Comment=A modern popup emoji picker, based on Emoji Mart
 Icon=EmojiMart.png
 Exec=/bin/sh -c "$HOME/.local/bin/EmojiMart.AppImage"
 Categories=Utility;
-Keywords=emoji,smiley,emoticon,icon,picker
+Keywords=emoji;smiley;emoticon;icon;picker
